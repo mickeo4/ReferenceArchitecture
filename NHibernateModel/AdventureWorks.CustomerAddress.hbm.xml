@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping namespace="AdventureWorksLT2008Model" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="CustomerAddress" table="CustomerAddress" schema="SalesLT">
+    <composite-id>
+      <key-property name="CustomerID" type="Int32">
+        <column name="CustomerID" not-null="true" precision="10" scale="0" sql-type="int" />
+      </key-property>
+      <key-property name="AddressID" type="Int32">
+        <column name="AddressID" not-null="true" precision="10" scale="0" sql-type="int" />
+      </key-property>
+    </composite-id>
+    <property name="AddressType" type="String">
+      <column name="AddressType" not-null="true" length="50" sql-type="nvarchar" />
+    </property>
+    <property name="Rowguid" type="Guid">
+      <column name="rowguid" default="newid()" not-null="true" sql-type="uniqueidentifier" unique="true" />
+    </property>
+    <property name="ModifiedDate" type="DateTime">
+      <column name="ModifiedDate" default="getdate()" not-null="true" sql-type="datetime" />
+    </property>
+    <many-to-one name="Customer" class="Customer">
+      <column name="CustomerID" not-null="true" precision="10" scale="0" sql-type="int" />
+    </many-to-one>
+    <many-to-one name="Address" class="Address">
+      <column name="AddressID" not-null="true" precision="10" scale="0" sql-type="int" />
+    </many-to-one>
+  </class>
+</hibernate-mapping>

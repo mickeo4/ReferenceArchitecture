@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping namespace="AdventureWorksLT2008Model" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Address" table="Address" schema="SalesLT">
+    <id name="AddressID" type="Int32">
+      <column name="AddressID" not-null="true" precision="10" scale="0" sql-type="int" />
+      <generator class="identity" />
+    </id>
+    <property name="AddressLine1" type="String">
+      <column name="AddressLine1" not-null="true" length="60" sql-type="nvarchar" />
+    </property>
+    <property name="AddressLine2" type="String">
+      <column name="AddressLine2" not-null="false" length="60" sql-type="nvarchar" />
+    </property>
+    <property name="City" type="String">
+      <column name="City" not-null="true" length="30" sql-type="nvarchar" />
+    </property>
+    <property name="StateProvince" type="String">
+      <column name="StateProvince" not-null="true" length="50" sql-type="nvarchar" />
+    </property>
+    <property name="CountryRegion" type="String">
+      <column name="CountryRegion" not-null="true" length="50" sql-type="nvarchar" />
+    </property>
+    <property name="PostalCode" type="String">
+      <column name="PostalCode" not-null="true" length="15" sql-type="nvarchar" />
+    </property>
+    <property name="Rowguid" type="Guid">
+      <column name="rowguid" default="newid()" not-null="true" sql-type="uniqueidentifier" unique="true" />
+    </property>
+    <property name="ModifiedDate" type="DateTime">
+      <column name="ModifiedDate" default="getdate()" not-null="true" sql-type="datetime" />
+    </property>
+    <set name="CustomerAddresses" inverse="true" generic="false">
+      <key>
+        <column name="AddressID" />
+      </key>
+      <one-to-many class="CustomerAddress" />
+    </set>
+    <set name="SalesOrderHeaders_ShipToAddressID" inverse="true" generic="false">
+      <key>
+        <column name="ShipToAddressID" />
+      </key>
+      <one-to-many class="SalesOrderHeader" />
+    </set>
+    <set name="SalesOrderHeaders_BillToAddressID" inverse="true" generic="false">
+      <key>
+        <column name="BillToAddressID" />
+      </key>
+      <one-to-many class="SalesOrderHeader" />
+    </set>
+  </class>
+</hibernate-mapping>

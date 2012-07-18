@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping namespace="AdventureWorksLT2008Model" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="SalesOrderHeader" table="SalesOrderHeader" schema="SalesLT">
+    <id name="SalesOrderID" type="Int32">
+      <column name="SalesOrderID" not-null="true" precision="10" scale="0" sql-type="int" />
+      <generator class="identity" />
+    </id>
+    <property name="RevisionNumber" type="Byte">
+      <column name="RevisionNumber" default="0" not-null="true" precision="3" scale="0" sql-type="tinyint" />
+    </property>
+    <property name="OrderDate" type="DateTime">
+      <column name="OrderDate" default="getdate()" not-null="true" sql-type="datetime" />
+    </property>
+    <property name="DueDate" type="DateTime">
+      <column name="DueDate" not-null="true" sql-type="datetime" />
+    </property>
+    <property name="ShipDate" type="DateTime">
+      <column name="ShipDate" not-null="false" sql-type="datetime" />
+    </property>
+    <property name="Status" type="Byte">
+      <column name="Status" default="1" not-null="true" precision="3" scale="0" sql-type="tinyint" />
+    </property>
+    <property name="OnlineOrderFlag" type="Boolean">
+      <column name="OnlineOrderFlag" default="1" not-null="true" sql-type="bit" />
+    </property>
+    <property name="SalesOrderNumber" type="String" generated="always">
+      <column name="SalesOrderNumber" not-null="true" length="25" sql-type="nvarchar" unique="true" />
+    </property>
+    <property name="PurchaseOrderNumber" type="String">
+      <column name="PurchaseOrderNumber" not-null="false" length="25" sql-type="nvarchar" />
+    </property>
+    <property name="AccountNumber" type="String">
+      <column name="AccountNumber" not-null="false" length="15" sql-type="nvarchar" />
+    </property>
+    <property name="ShipMethod" type="String">
+      <column name="ShipMethod" not-null="true" length="50" sql-type="nvarchar" />
+    </property>
+    <property name="CreditCardApprovalCode" type="String">
+      <column name="CreditCardApprovalCode" not-null="false" length="15" sql-type="varchar" />
+    </property>
+    <property name="SubTotal" type="Decimal">
+      <column name="SubTotal" default="0.00" not-null="true" precision="19" scale="4" sql-type="money" />
+    </property>
+    <property name="TaxAmt" type="Decimal">
+      <column name="TaxAmt" default="0.00" not-null="true" precision="19" scale="4" sql-type="money" />
+    </property>
+    <property name="Freight" type="Decimal">
+      <column name="Freight" default="0.00" not-null="true" precision="19" scale="4" sql-type="money" />
+    </property>
+    <property name="TotalDue" type="Decimal" generated="always">
+      <column name="TotalDue" not-null="true" precision="19" scale="4" sql-type="money" />
+    </property>
+    <property name="Comment" type="String">
+      <column name="Comment" not-null="false" sql-type="nvarchar" />
+    </property>
+    <property name="Rowguid" type="Guid">
+      <column name="rowguid" default="newid()" not-null="true" sql-type="uniqueidentifier" unique="true" />
+    </property>
+    <property name="ModifiedDate" type="DateTime">
+      <column name="ModifiedDate" default="getdate()" not-null="true" sql-type="datetime" />
+    </property>
+    <many-to-one name="Customer" class="Customer">
+      <column name="CustomerID" not-null="true" precision="10" scale="0" sql-type="int" />
+    </many-to-one>
+    <many-to-one name="Address_ShipToAddressID" class="Address">
+      <column name="ShipToAddressID" not-null="false" precision="10" scale="0" sql-type="int" />
+    </many-to-one>
+    <many-to-one name="Address_BillToAddressID" class="Address">
+      <column name="BillToAddressID" not-null="false" precision="10" scale="0" sql-type="int" />
+    </many-to-one>
+    <set name="SalesOrderDetails" inverse="true" generic="false">
+      <key>
+        <column name="SalesOrderID" />
+      </key>
+      <one-to-many class="SalesOrderDetail" />
+    </set>
+  </class>
+</hibernate-mapping>

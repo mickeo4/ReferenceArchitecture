@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping namespace="AdventureWorksLT2008Model" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="SalesOrderDetail" table="SalesOrderDetail" schema="SalesLT">
+    <composite-id>
+      <key-property name="SalesOrderID" type="Int32">
+        <column name="SalesOrderID" not-null="true" precision="10" scale="0" sql-type="int" />
+      </key-property>
+      <key-property name="SalesOrderDetailID" type="Int32">
+        <column name="SalesOrderDetailID" not-null="true" precision="10" scale="0" sql-type="int" />
+      </key-property>
+    </composite-id>
+    <property name="OrderQty" type="Int16">
+      <column name="OrderQty" not-null="true" precision="5" scale="0" sql-type="smallint" />
+    </property>
+    <property name="UnitPrice" type="Decimal">
+      <column name="UnitPrice" not-null="true" precision="19" scale="4" sql-type="money" />
+    </property>
+    <property name="UnitPriceDiscount" type="Decimal">
+      <column name="UnitPriceDiscount" default="0.0" not-null="true" precision="19" scale="4" sql-type="money" />
+    </property>
+    <property name="LineTotal" type="Decimal" generated="always">
+      <column name="LineTotal" not-null="true" precision="38" scale="6" sql-type="numeric" />
+    </property>
+    <property name="Rowguid" type="Guid">
+      <column name="rowguid" default="newid()" not-null="true" sql-type="uniqueidentifier" unique="true" />
+    </property>
+    <property name="ModifiedDate" type="DateTime">
+      <column name="ModifiedDate" default="getdate()" not-null="true" sql-type="datetime" />
+    </property>
+    <many-to-one name="SalesOrderHeader" class="SalesOrderHeader" cascade="delete">
+      <column name="SalesOrderID" not-null="true" precision="10" scale="0" sql-type="int" />
+    </many-to-one>
+    <many-to-one name="Product" class="Product">
+      <column name="ProductID" not-null="true" precision="10" scale="0" sql-type="int" />
+    </many-to-one>
+  </class>
+</hibernate-mapping>

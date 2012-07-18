@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping p1:Guid="1712769f-08f6-439d-b780-7b20129e0b35" xmlns:p1="http://devart.com/schemas/EntityDeveloper/1.0" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Address" table="Address" schema="SalesLT" p1:Guid="cd29d61a-2f0a-4b07-8658-f5875e60a3f9">
+    <Documentation>
+      <Summary>Street address information for customers.</Summary>
+    </Documentation>
+    <id name="AddressID" type="Int32" p1:ValidateRequired="True" p1:Guid="1c6b1691-09cb-42dc-bd1f-a88d2043b14b">
+      <Documentation>
+        <Summary>Primary key for Address records.</Summary>
+      </Documentation>
+      <column name="AddressID" not-null="true" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+      <generator class="identity" />
+    </id>
+    <property name="AddressLine1" type="String" p1:ValidateMaxLength="60" p1:ValidateRequired="True" p1:Guid="7db1b4fc-e7b6-4105-8bb8-f772bae3193b">
+      <Documentation>
+        <Summary>First street address line.</Summary>
+      </Documentation>
+      <column name="AddressLine1" not-null="true" length="60" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="AddressLine2" type="String" p1:nullable="true" p1:ValidateMaxLength="60" p1:ValidateRequired="False" p1:Guid="42d464bf-189b-48ca-ab4e-0c5b0d131186">
+      <Documentation>
+        <Summary>Second street address line.</Summary>
+      </Documentation>
+      <column name="AddressLine2" not-null="false" length="60" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="City" type="String" p1:ValidateMaxLength="30" p1:ValidateRequired="True" p1:Guid="aa51bbeb-528a-40b4-8ef6-91f19fd5fe4c">
+      <Documentation>
+        <Summary>Name of the city.</Summary>
+      </Documentation>
+      <column name="City" not-null="true" length="30" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="StateProvince" type="String" p1:ValidateMaxLength="50" p1:ValidateRequired="True" p1:Guid="5685df8b-aa48-4a46-a2bf-e5d5379789b8">
+      <Documentation>
+        <Summary>Name of state or province.</Summary>
+      </Documentation>
+      <column name="StateProvince" not-null="true" length="50" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="CountryRegion" type="String" p1:ValidateMaxLength="50" p1:ValidateRequired="True" p1:Guid="16102123-5160-475d-8f86-9f507f2c12dc">
+      <column name="CountryRegion" not-null="true" length="50" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="PostalCode" type="String" p1:ValidateMaxLength="15" p1:ValidateRequired="True" p1:Guid="c1db6a58-80c0-43e2-965b-92ef4a1f1c27">
+      <Documentation>
+        <Summary>Postal code for the street address.</Summary>
+      </Documentation>
+      <column name="PostalCode" not-null="true" length="15" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="Rowguid" type="Guid" p1:ValidateRequired="True" p1:Guid="3a4dbec5-01e7-4b1e-95b9-a0601d35965d">
+      <Documentation>
+        <Summary>ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.</Summary>
+      </Documentation>
+      <column name="rowguid" default="newid()" not-null="true" sql-type="uniqueidentifier" unique="true" p1:unicode="false" />
+    </property>
+    <property name="ModifiedDate" type="DateTime" p1:ValidateRequired="True" p1:Guid="63e95c57-d19f-45c3-a394-4cdf18e4660e">
+      <Documentation>
+        <Summary>Date and time the record was last updated.</Summary>
+      </Documentation>
+      <column name="ModifiedDate" default="getdate()" not-null="true" sql-type="datetime" p1:unicode="false" />
+    </property>
+    <set name="CustomerAddresses" inverse="true" generic="false" p1:AssociationGuid="9e49df6a-c19f-4816-a04d-06e2c2422b15" p1:Guid="46805de1-3d2d-4154-a227-7bc57f742bf7">
+      <key>
+        <column name="AddressID" />
+      </key>
+      <one-to-many class="CustomerAddress" />
+    </set>
+    <set name="SalesOrderHeaders_ShipToAddressID" inverse="true" generic="false" p1:AssociationGuid="9b6207a8-78f8-4ffe-bfee-0ce23ed43608" p1:Guid="73538b6b-9515-423b-8f87-7ac1db2e4b5e">
+      <key>
+        <column name="ShipToAddressID" />
+      </key>
+      <one-to-many class="SalesOrderHeader" />
+    </set>
+    <set name="SalesOrderHeaders_BillToAddressID" inverse="true" generic="false" p1:AssociationGuid="2a72ea2e-ce45-4975-8615-d212b6ab2723" p1:Guid="12b5f934-c5cd-46de-912f-b3bf3136338a">
+      <key>
+        <column name="BillToAddressID" />
+      </key>
+      <one-to-many class="SalesOrderHeader" />
+    </set>
+  </class>
+  <class name="Customer" table="Customer" schema="SalesLT" p1:Guid="df619cb3-b6ff-4e3a-a9f1-dc2b56dd5c2d">
+    <Documentation>
+      <Summary>Customer information.</Summary>
+    </Documentation>
+    <id name="CustomerID" type="Int32" p1:ValidateRequired="True" p1:Guid="9d81138a-5a7c-4edb-8d65-26c142857a87">
+      <Documentation>
+        <Summary>Primary key for Customer records.</Summary>
+      </Documentation>
+      <column name="CustomerID" not-null="true" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+      <generator class="identity" />
+    </id>
+    <property name="NameStyle" type="Boolean" p1:ValidateRequired="True" p1:Guid="f14d2a7d-3d3f-44d1-9660-3f653c2ae5a0">
+      <Documentation>
+        <Summary>0 = The data in FirstName and LastName are stored in western style (first name, last name) order.  1 = Eastern style (last name, first name) order.</Summary>
+      </Documentation>
+      <column name="NameStyle" default="0" not-null="true" sql-type="bit" p1:unicode="false" />
+    </property>
+    <property name="Title" type="String" p1:nullable="true" p1:ValidateMaxLength="8" p1:ValidateRequired="False" p1:Guid="f7fe0645-a9d3-4aae-902e-a62c5d2dcb82">
+      <Documentation>
+        <Summary>A courtesy title. For example, Mr. or Ms.</Summary>
+      </Documentation>
+      <column name="Title" not-null="false" length="8" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="FirstName" type="String" p1:ValidateMaxLength="50" p1:ValidateRequired="True" p1:Guid="ae3511d7-1920-4f3d-9be6-52289b502847">
+      <Documentation>
+        <Summary>First name of the person.</Summary>
+      </Documentation>
+      <column name="FirstName" not-null="true" length="50" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="MiddleName" type="String" p1:nullable="true" p1:ValidateMaxLength="50" p1:ValidateRequired="False" p1:Guid="beb88926-d942-4526-a9e5-4ebc7c93fca3">
+      <Documentation>
+        <Summary>Middle name or middle initial of the person.</Summary>
+      </Documentation>
+      <column name="MiddleName" not-null="false" length="50" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="LastName" type="String" p1:ValidateMaxLength="50" p1:ValidateRequired="True" p1:Guid="6910d84c-6f0a-4cda-a408-7dd8901eabde">
+      <Documentation>
+        <Summary>Last name of the person.</Summary>
+      </Documentation>
+      <column name="LastName" not-null="true" length="50" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="Suffix" type="String" p1:nullable="true" p1:ValidateMaxLength="10" p1:ValidateRequired="False" p1:Guid="5b2f67b4-f171-4d43-8c81-679b90e9af03">
+      <Documentation>
+        <Summary>Surname suffix. For example, Sr. or Jr.</Summary>
+      </Documentation>
+      <column name="Suffix" not-null="false" length="10" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="CompanyName" type="String" p1:nullable="true" p1:ValidateMaxLength="128" p1:ValidateRequired="False" p1:Guid="60605871-3e08-42fa-899f-a96bfed5e599">
+      <Documentation>
+        <Summary>The customer's organization.</Summary>
+      </Documentation>
+      <column name="CompanyName" not-null="false" length="128" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="SalesPerson" type="String" p1:nullable="true" p1:ValidateMaxLength="256" p1:ValidateRequired="False" p1:Guid="6dbc6fb9-786b-4f08-976f-2ca52de36c9c">
+      <Documentation>
+        <Summary>The customer's sales person, an employee of AdventureWorks Cycles.</Summary>
+      </Documentation>
+      <column name="SalesPerson" not-null="false" length="256" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="EmailAddress" type="String" p1:nullable="true" p1:ValidateMaxLength="50" p1:ValidateRequired="False" p1:Guid="f579b4a5-8a7b-4949-af31-a27ba43e28e2">
+      <Documentation>
+        <Summary>E-mail address for the person.</Summary>
+      </Documentation>
+      <column name="EmailAddress" not-null="false" length="50" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="Phone" type="String" p1:nullable="true" p1:ValidateMaxLength="25" p1:ValidateRequired="False" p1:Guid="4115a18c-55e0-4a2c-82c2-4041301a9ab8">
+      <Documentation>
+        <Summary>Phone number associated with the person.</Summary>
+      </Documentation>
+      <column name="Phone" not-null="false" length="25" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="PasswordHash" type="String" p1:ValidateMaxLength="128" p1:ValidateRequired="True" p1:Guid="9ff16b81-48f2-42c9-9ed6-eca57463a037">
+      <Documentation>
+        <Summary>Password for the e-mail account.</Summary>
+      </Documentation>
+      <column name="PasswordHash" not-null="true" length="128" sql-type="varchar" p1:unicode="false" />
+    </property>
+    <property name="PasswordSalt" type="String" p1:ValidateMaxLength="10" p1:ValidateRequired="True" p1:Guid="c645e151-f5c5-439c-8ee8-ee2502bbd22c">
+      <Documentation>
+        <Summary>Random value concatenated with the password string before the password is hashed.</Summary>
+      </Documentation>
+      <column name="PasswordSalt" not-null="true" length="10" sql-type="varchar" p1:unicode="false" />
+    </property>
+    <property name="Rowguid" type="Guid" p1:ValidateRequired="True" p1:Guid="fd7c6b69-b733-463d-aaca-dfee603a9376">
+      <Documentation>
+        <Summary>ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.</Summary>
+      </Documentation>
+      <column name="rowguid" default="newid()" not-null="true" sql-type="uniqueidentifier" unique="true" p1:unicode="false" />
+    </property>
+    <property name="ModifiedDate" type="DateTime" p1:ValidateRequired="True" p1:Guid="97873ea1-471e-499e-905c-f49ce9d093d5">
+      <Documentation>
+        <Summary>Date and time the record was last updated.</Summary>
+      </Documentation>
+      <column name="ModifiedDate" default="getdate()" not-null="true" sql-type="datetime" p1:unicode="false" />
+    </property>
+    <set name="CustomerAddresses" inverse="true" generic="false" p1:AssociationGuid="ae8efdcb-b9be-4a3f-ac2c-48aa013ef949" p1:Guid="ff15b9c3-d831-4bd3-b0f1-fe9dcc4cf06f">
+      <key>
+        <column name="CustomerID" />
+      </key>
+      <one-to-many class="CustomerAddress" />
+    </set>
+    <set name="SalesOrderHeaders" inverse="true" generic="false" p1:AssociationGuid="fd4c7908-f662-4073-90a4-d5ea3522da11" p1:Guid="323c2e5e-f6a3-495b-87f9-0aea8f3e0cba">
+      <key>
+        <column name="CustomerID" />
+      </key>
+      <one-to-many class="SalesOrderHeader" />
+    </set>
+  </class>
+  <class name="CustomerAddress" table="CustomerAddress" schema="SalesLT" p1:Guid="eb35d99c-9f54-4c32-bbb8-13844b6ece7f">
+    <Documentation>
+      <Summary>Cross-reference table mapping customers to their address(es).</Summary>
+    </Documentation>
+    <composite-id>
+      <key-property name="CustomerID" type="Int32" p1:ValidateRequired="True" p1:Guid="07c5fec5-9d4b-4a03-a06c-a9b7a267f3d2">
+        <Documentation>
+          <Summary>Primary key. Foreign key to Customer.CustomerID.</Summary>
+        </Documentation>
+        <column name="CustomerID" not-null="true" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+      </key-property>
+      <key-property name="AddressID" type="Int32" p1:ValidateRequired="True" p1:Guid="87fab03e-a07f-4c69-bb1d-854424fdce78">
+        <Documentation>
+          <Summary>Primary key. Foreign key to Address.AddressID.</Summary>
+        </Documentation>
+        <column name="AddressID" not-null="true" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+      </key-property>
+    </composite-id>
+    <property name="AddressType" type="String" p1:ValidateMaxLength="50" p1:ValidateRequired="True" p1:Guid="ed79dfe0-317b-48a2-8f57-b34e5953c48d">
+      <Documentation>
+        <Summary>The kind of Address. One of: Archive, Billing, Home, Main Office, Primary, Shipping</Summary>
+      </Documentation>
+      <column name="AddressType" not-null="true" length="50" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="Rowguid" type="Guid" p1:ValidateRequired="True" p1:Guid="4644bf36-2341-4a07-b560-1ae872786982">
+      <Documentation>
+        <Summary>ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.</Summary>
+      </Documentation>
+      <column name="rowguid" default="newid()" not-null="true" sql-type="uniqueidentifier" unique="true" p1:unicode="false" />
+    </property>
+    <property name="ModifiedDate" type="DateTime" p1:ValidateRequired="True" p1:Guid="662ace01-30d4-4729-b94c-722327817316">
+      <Documentation>
+        <Summary>Date and time the record was last updated.</Summary>
+      </Documentation>
+      <column name="ModifiedDate" default="getdate()" not-null="true" sql-type="datetime" p1:unicode="false" />
+    </property>
+    <many-to-one name="Customer" class="Customer" p1:AssociationGuid="ae8efdcb-b9be-4a3f-ac2c-48aa013ef949" p1:Guid="8d27d534-545f-4694-bece-f24cc727d585">
+      <column name="CustomerID" not-null="true" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+    </many-to-one>
+    <many-to-one name="Address" class="Address" p1:AssociationGuid="9e49df6a-c19f-4816-a04d-06e2c2422b15" p1:Guid="1f0d13d8-66d3-404d-8746-0656a1d1c163">
+      <column name="AddressID" not-null="true" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+    </many-to-one>
+  </class>
+  <class name="Product" table="Product" schema="SalesLT" p1:Guid="24567de8-993d-4f5f-93d5-6532a9b8092f">
+    <Documentation>
+      <Summary>Products sold or used in the manfacturing of sold products.</Summary>
+    </Documentation>
+    <id name="ProductID" type="Int32" p1:ValidateRequired="True" p1:Guid="d9f44282-6c29-42b4-82d9-ac18c40c07fb">
+      <Documentation>
+        <Summary>Primary key for Product records.</Summary>
+      </Documentation>
+      <column name="ProductID" not-null="true" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+      <generator class="identity" />
+    </id>
+    <property name="Name" type="String" p1:ValidateMaxLength="50" p1:ValidateRequired="True" p1:Guid="0eca8cf5-dcdc-4b9c-b890-1e08398ba112">
+      <Documentation>
+        <Summary>Name of the product.</Summary>
+      </Documentation>
+      <column name="Name" not-null="true" length="50" sql-type="nvarchar" unique="true" p1:unicode="true" />
+    </property>
+    <property name="ProductNumber" type="String" p1:ValidateMaxLength="25" p1:ValidateRequired="True" p1:Guid="dd60519c-29b9-40e0-822a-15b90f61a526">
+      <Documentation>
+        <Summary>Unique product identification number.</Summary>
+      </Documentation>
+      <column name="ProductNumber" not-null="true" length="25" sql-type="nvarchar" unique="true" p1:unicode="true" />
+    </property>
+    <property name="Color" type="String" p1:nullable="true" p1:ValidateMaxLength="15" p1:ValidateRequired="False" p1:Guid="243c4f39-66ac-42f0-85f3-f4342d63a713">
+      <Documentation>
+        <Summary>Product color.</Summary>
+      </Documentation>
+      <column name="Color" not-null="false" length="15" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="StandardCost" type="Decimal" p1:ValidateRequired="True" p1:Guid="d5aea15a-64eb-4613-b1e6-4290ad0ad6bd">
+      <Documentation>
+        <Summary>Standard cost of the product.</Summary>
+      </Documentation>
+      <column name="StandardCost" not-null="true" precision="19" scale="4" sql-type="money" p1:unicode="false" />
+    </property>
+    <property name="ListPrice" type="Decimal" p1:ValidateRequired="True" p1:Guid="302c8568-9516-439d-a272-e195a09c72fd">
+      <Documentation>
+        <Summary>Selling price.</Summary>
+      </Documentation>
+      <column name="ListPrice" not-null="true" precision="19" scale="4" sql-type="money" p1:unicode="false" />
+    </property>
+    <property name="Size" type="String" p1:nullable="true" p1:ValidateMaxLength="5" p1:ValidateRequired="False" p1:Guid="a04cea65-4649-4cc6-8bea-49d223daac10">
+      <Documentation>
+        <Summary>Product size.</Summary>
+      </Documentation>
+      <column name="Size" not-null="false" length="5" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="Weight" type="Decimal" p1:nullable="true" p1:ValidateRequired="False" p1:Guid="1cfa4ffd-ef6e-4035-b842-c8e60820c5ac">
+      <Documentation>
+        <Summary>Product weight.</Summary>
+      </Documentation>
+      <column name="Weight" not-null="false" precision="8" scale="2" sql-type="decimal" p1:unicode="false" />
+    </property>
+    <property name="SellStartDate" type="DateTime" p1:ValidateRequired="True" p1:Guid="41658375-a474-43da-86bd-f5d00c5e5360">
+      <Documentation>
+        <Summary>Date the product was available for sale.</Summary>
+      </Documentation>
+      <column name="SellStartDate" not-null="true" sql-type="datetime" p1:unicode="false" />
+    </property>
+    <property name="SellEndDate" type="DateTime" p1:nullable="true" p1:ValidateRequired="False" p1:Guid="16df1288-5e56-451d-80d1-66b71b08c59b">
+      <Documentation>
+        <Summary>Date the product was no longer available for sale.</Summary>
+      </Documentation>
+      <column name="SellEndDate" not-null="false" sql-type="datetime" p1:unicode="false" />
+    </property>
+    <property name="DiscontinuedDate" type="DateTime" p1:nullable="true" p1:ValidateRequired="False" p1:Guid="87a0b9f2-2c7a-4e34-8e2a-b27f69b6fddb">
+      <Documentation>
+        <Summary>Date the product was discontinued.</Summary>
+      </Documentation>
+      <column name="DiscontinuedDate" not-null="false" sql-type="datetime" p1:unicode="false" />
+    </property>
+    <property name="ThumbNailPhoto" type="Byte[]" p1:nullable="true" p1:ValidateRequired="False" p1:Guid="5ec4c175-1222-4b8e-94a6-aef15822ea77">
+      <Documentation>
+        <Summary>Small image of the product.</Summary>
+      </Documentation>
+      <column name="ThumbNailPhoto" not-null="false" sql-type="varbinary" p1:unicode="false" />
+    </property>
+    <property name="ThumbnailPhotoFileName" type="String" p1:nullable="true" p1:ValidateMaxLength="50" p1:ValidateRequired="False" p1:Guid="3ca3b70e-0d5a-4cc9-acc8-0356089dee02">
+      <Documentation>
+        <Summary>Small image file name.</Summary>
+      </Documentation>
+      <column name="ThumbnailPhotoFileName" not-null="false" length="50" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="Rowguid" type="Guid" p1:ValidateRequired="True" p1:Guid="32709e68-d3fb-47e0-94bf-3493fb9a5d59">
+      <Documentation>
+        <Summary>ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.</Summary>
+      </Documentation>
+      <column name="rowguid" default="newid()" not-null="true" sql-type="uniqueidentifier" unique="true" p1:unicode="false" />
+    </property>
+    <property name="ModifiedDate" type="DateTime" p1:ValidateRequired="True" p1:Guid="467b3cd3-c93c-405b-a812-5e659f18c278">
+      <Documentation>
+        <Summary>Date and time the record was last updated.</Summary>
+      </Documentation>
+      <column name="ModifiedDate" default="getdate()" not-null="true" sql-type="datetime" p1:unicode="false" />
+    </property>
+    <many-to-one name="ProductModel" class="ProductModel" p1:AssociationGuid="f4774b24-951b-4372-aa0d-ab64e23ccabf" p1:Guid="ef1de127-1c7f-4698-8641-0e9663aa23ac">
+      <column name="ProductModelID" not-null="false" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+    </many-to-one>
+    <many-to-one name="ProductCategory" class="ProductCategory" p1:AssociationGuid="877ddd99-c8c1-4f06-90c5-e21517ce41ba" p1:Guid="a7f0e83f-6b1d-48fb-8f97-179f6ca234b0">
+      <column name="ProductCategoryID" not-null="false" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+    </many-to-one>
+    <set name="SalesOrderDetails" inverse="true" generic="false" p1:AssociationGuid="d68488f3-95e7-4c8b-8a93-5442c4278295" p1:Guid="9b9e449b-63aa-4ffd-ba22-cc7ad517c485">
+      <key>
+        <column name="ProductID" />
+      </key>
+      <one-to-many class="SalesOrderDetail" />
+    </set>
+  </class>
+  <class name="ProductCategory" table="ProductCategory" schema="SalesLT" p1:Guid="ef16789e-7c17-45a9-a7ea-a3c1bdf89ff0">
+    <Documentation>
+      <Summary>High-level product categorization.</Summary>
+    </Documentation>
+    <id name="ProductCategoryID" type="Int32" p1:ValidateRequired="True" p1:Guid="32769e3b-e236-43b5-acd1-e0fb497955fc">
+      <Documentation>
+        <Summary>Primary key for ProductCategory records.</Summary>
+      </Documentation>
+      <column name="ProductCategoryID" not-null="true" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+      <generator class="identity" />
+    </id>
+    <property name="Name" type="String" p1:ValidateMaxLength="50" p1:ValidateRequired="True" p1:Guid="686fc0ea-72de-45e3-b534-c2bdb90c6a4a">
+      <Documentation>
+        <Summary>Category description.</Summary>
+      </Documentation>
+      <column name="Name" not-null="true" length="50" sql-type="nvarchar" unique="true" p1:unicode="true" />
+    </property>
+    <property name="Rowguid" type="Guid" p1:ValidateRequired="True" p1:Guid="90b0059f-90fb-4032-bd86-a1a461b3de90">
+      <Documentation>
+        <Summary>ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.</Summary>
+      </Documentation>
+      <column name="rowguid" default="newid()" not-null="true" sql-type="uniqueidentifier" unique="true" p1:unicode="false" />
+    </property>
+    <property name="ModifiedDate" type="DateTime" p1:ValidateRequired="True" p1:Guid="3d237f8b-47a3-4728-8171-085660d27534">
+      <Documentation>
+        <Summary>Date and time the record was last updated.</Summary>
+      </Documentation>
+      <column name="ModifiedDate" default="getdate()" not-null="true" sql-type="datetime" p1:unicode="false" />
+    </property>
+    <many-to-one name="ProductCategory_ParentProductCategoryID" class="ProductCategory" p1:AssociationGuid="f54e1590-238e-4aa5-b049-856badc51e6b" p1:Guid="cb9885a1-4be1-4934-ab4e-0d1e2d927ce6">
+      <column name="ParentProductCategoryID" not-null="false" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+    </many-to-one>
+    <set name="Products" inverse="true" generic="false" p1:AssociationGuid="877ddd99-c8c1-4f06-90c5-e21517ce41ba" p1:Guid="e6874ef3-357e-4056-a10a-f8f71762d87c">
+      <key>
+        <column name="ProductCategoryID" />
+      </key>
+      <one-to-many class="Product" />
+    </set>
+    <set name="ProductCategories_ParentProductCategoryID" inverse="true" generic="false" p1:AssociationGuid="f54e1590-238e-4aa5-b049-856badc51e6b" p1:Guid="0ab3b831-81e3-4768-a8f7-fadc2e628bc5">
+      <key>
+        <column name="ParentProductCategoryID" />
+      </key>
+      <one-to-many class="ProductCategory" />
+    </set>
+  </class>
+  <class name="ProductDescription" table="ProductDescription" schema="SalesLT" p1:Guid="1768e447-5290-4a33-be35-31400ddcc1fc">
+    <Documentation>
+      <Summary>Product descriptions in several languages.</Summary>
+    </Documentation>
+    <id name="ProductDescriptionID" type="Int32" p1:ValidateRequired="True" p1:Guid="72021a2e-ec4d-4979-bd2e-d29034af010c">
+      <Documentation>
+        <Summary>Primary key for ProductDescription records.</Summary>
+      </Documentation>
+      <column name="ProductDescriptionID" not-null="true" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+      <generator class="identity" />
+    </id>
+    <property name="Description" type="String" p1:ValidateMaxLength="400" p1:ValidateRequired="True" p1:Guid="6bbf42e8-ca3a-4958-a809-74c4d2baba89">
+      <Documentation>
+        <Summary>Description of the product.</Summary>
+      </Documentation>
+      <column name="Description" not-null="true" length="400" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="Rowguid" type="Guid" p1:ValidateRequired="True" p1:Guid="e526f0f7-410b-4f63-be2b-6ed9f9b4a083">
+      <Documentation>
+        <Summary>ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.</Summary>
+      </Documentation>
+      <column name="rowguid" default="newid()" not-null="true" sql-type="uniqueidentifier" unique="true" p1:unicode="false" />
+    </property>
+    <property name="ModifiedDate" type="DateTime" p1:ValidateRequired="True" p1:Guid="a1f9db02-5187-410c-8316-576cd5a6e0c7">
+      <Documentation>
+        <Summary>Date and time the record was last updated.</Summary>
+      </Documentation>
+      <column name="ModifiedDate" default="getdate()" not-null="true" sql-type="datetime" p1:unicode="false" />
+    </property>
+    <set name="ProductModelProductDescriptions" inverse="true" generic="false" p1:AssociationGuid="c7ae230c-2285-4199-85c2-e3c99db85503" p1:Guid="d6431133-02e1-4958-9e10-eabefab33696">
+      <key>
+        <column name="ProductDescriptionID" />
+      </key>
+      <one-to-many class="ProductModelProductDescription" />
+    </set>
+  </class>
+  <class name="ProductModel" table="ProductModel" schema="SalesLT" p1:Guid="b03a628c-3573-4562-978a-d02d0beade41">
+    <id name="ProductModelID" type="Int32" p1:ValidateRequired="True" p1:Guid="bfc6ca14-7d70-4bec-94d7-f67563d68e9d">
+      <column name="ProductModelID" not-null="true" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+      <generator class="identity" />
+    </id>
+    <property name="Name" type="String" p1:ValidateMaxLength="50" p1:ValidateRequired="True" p1:Guid="aca418f8-4a72-4f4a-b13f-023ec0cb0abd">
+      <column name="Name" not-null="true" length="50" sql-type="nvarchar" unique="true" p1:unicode="true" />
+    </property>
+    <property name="CatalogDescription" type="StringClob" p1:nullable="true" p1:ValidateRequired="False" p1:Guid="71fef9bd-022f-4e96-b403-12565f191e3b">
+      <column name="CatalogDescription" not-null="false" sql-type="xml" p1:unicode="false" />
+    </property>
+    <property name="Rowguid" type="Guid" p1:ValidateRequired="True" p1:Guid="4c4d3b2b-e39f-4e4e-948d-ce7846523264">
+      <column name="rowguid" default="newid()" not-null="true" sql-type="uniqueidentifier" unique="true" p1:unicode="false" />
+    </property>
+    <property name="ModifiedDate" type="DateTime" p1:ValidateRequired="True" p1:Guid="678ad24e-3af0-4fe8-a231-5ae1ca7ec6b8">
+      <column name="ModifiedDate" default="getdate()" not-null="true" sql-type="datetime" p1:unicode="false" />
+    </property>
+    <set name="Products" inverse="true" generic="false" p1:AssociationGuid="f4774b24-951b-4372-aa0d-ab64e23ccabf" p1:Guid="b638372e-d4a1-407a-912d-a51473de6401">
+      <key>
+        <column name="ProductModelID" />
+      </key>
+      <one-to-many class="Product" />
+    </set>
+    <set name="ProductModelProductDescriptions" inverse="true" generic="false" p1:AssociationGuid="63d1a02f-6c23-4298-9d15-3cd8f558656e" p1:Guid="6b77b5d6-b6d1-4050-81ef-b40ccbd03344">
+      <key>
+        <column name="ProductModelID" />
+      </key>
+      <one-to-many class="ProductModelProductDescription" />
+    </set>
+  </class>
+  <class name="ProductModelProductDescription" table="ProductModelProductDescription" schema="SalesLT" p1:Guid="9012d770-df4a-463e-af35-f4cb1443b405">
+    <Documentation>
+      <Summary>Cross-reference table mapping product descriptions and the language the description is written in.</Summary>
+    </Documentation>
+    <composite-id>
+      <key-property name="ProductModelID" type="Int32" p1:ValidateRequired="True" p1:Guid="f00fdae3-02e8-452d-b5a9-7e80650c0d45">
+        <Documentation>
+          <Summary>Primary key. Foreign key to ProductModel.ProductModelID.</Summary>
+        </Documentation>
+        <column name="ProductModelID" not-null="true" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+      </key-property>
+      <key-property name="ProductDescriptionID" type="Int32" p1:ValidateRequired="True" p1:Guid="35159528-660b-4c93-878d-b853a76b6841">
+        <Documentation>
+          <Summary>Primary key. Foreign key to ProductDescription.ProductDescriptionID.</Summary>
+        </Documentation>
+        <column name="ProductDescriptionID" not-null="true" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+      </key-property>
+      <key-property name="Culture" type="String" p1:ValidateMaxLength="6" p1:ValidateRequired="True" p1:Guid="0e0a2086-3bcf-430c-9799-1cecfd1640e0">
+        <Documentation>
+          <Summary>The culture for which the description is written</Summary>
+        </Documentation>
+        <column name="Culture" not-null="true" length="6" sql-type="nchar" p1:fixed-length="true" p1:unicode="true" />
+      </key-property>
+    </composite-id>
+    <property name="Rowguid" type="Guid" p1:ValidateRequired="True" p1:Guid="92ea64fa-94e0-473c-ae02-3565f64d1806">
+      <column name="rowguid" default="newid()" not-null="true" sql-type="uniqueidentifier" unique="true" p1:unicode="false" />
+    </property>
+    <property name="ModifiedDate" type="DateTime" p1:ValidateRequired="True" p1:Guid="dfd3cbd1-ba79-4e31-9070-088c08dc5ea6">
+      <Documentation>
+        <Summary>Date and time the record was last updated.</Summary>
+      </Documentation>
+      <column name="ModifiedDate" default="getdate()" not-null="true" sql-type="datetime" p1:unicode="false" />
+    </property>
+    <many-to-one name="ProductDescription" class="ProductDescription" p1:AssociationGuid="c7ae230c-2285-4199-85c2-e3c99db85503" p1:Guid="1a3183d1-b5e7-413d-b793-e475042bc323">
+      <column name="ProductDescriptionID" not-null="true" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+    </many-to-one>
+    <many-to-one name="ProductModel" class="ProductModel" p1:AssociationGuid="63d1a02f-6c23-4298-9d15-3cd8f558656e" p1:Guid="5126f047-1ebb-4be8-a0f1-87aefcc119ce">
+      <column name="ProductModelID" not-null="true" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+    </many-to-one>
+  </class>
+  <class name="SalesOrderDetail" table="SalesOrderDetail" schema="SalesLT" p1:Guid="499978d1-008d-4c1f-ac7f-9f4b0607026f">
+    <Documentation>
+      <Summary>Individual products associated with a specific sales order. See SalesOrderHeader.</Summary>
+    </Documentation>
+    <composite-id>
+      <key-property name="SalesOrderID" type="Int32" p1:ValidateRequired="True" p1:Guid="c45abf23-478a-4053-ada6-722ef20ff67c">
+        <Documentation>
+          <Summary>Primary key. Foreign key to SalesOrderHeader.SalesOrderID.</Summary>
+        </Documentation>
+        <column name="SalesOrderID" not-null="true" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+      </key-property>
+      <key-property name="SalesOrderDetailID" type="Int32" p1:ValidateRequired="True" p1:Guid="61ae0562-3976-4602-a8bf-bcbe1b4456ca">
+        <Documentation>
+          <Summary>Primary key. One incremental unique number per product sold.</Summary>
+        </Documentation>
+        <column name="SalesOrderDetailID" not-null="true" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+      </key-property>
+    </composite-id>
+    <property name="OrderQty" type="Int16" p1:ValidateRequired="True" p1:Guid="6e8d0526-6ad0-446b-bb75-c610f3c4b3f8">
+      <Documentation>
+        <Summary>Quantity ordered per product.</Summary>
+      </Documentation>
+      <column name="OrderQty" not-null="true" precision="5" scale="0" sql-type="smallint" p1:unicode="false" />
+    </property>
+    <property name="UnitPrice" type="Decimal" p1:ValidateRequired="True" p1:Guid="21a3abb8-6fac-4c86-853f-48aac7bb66ac">
+      <Documentation>
+        <Summary>Selling price of a single product.</Summary>
+      </Documentation>
+      <column name="UnitPrice" not-null="true" precision="19" scale="4" sql-type="money" p1:unicode="false" />
+    </property>
+    <property name="UnitPriceDiscount" type="Decimal" p1:ValidateRequired="True" p1:Guid="534079e7-24e4-49ea-bce8-3388a83dc82f">
+      <Documentation>
+        <Summary>Discount amount.</Summary>
+      </Documentation>
+      <column name="UnitPriceDiscount" default="0.0" not-null="true" precision="19" scale="4" sql-type="money" p1:unicode="false" />
+    </property>
+    <property name="LineTotal" type="Decimal" generated="always" p1:ValidateRequired="True" p1:Guid="701e71fc-38cc-42df-9b40-c5cad1a9ea78">
+      <Documentation>
+        <Summary>Per product subtotal. Computed as UnitPrice * (1 - UnitPriceDiscount) * OrderQty.</Summary>
+      </Documentation>
+      <column name="LineTotal" not-null="true" precision="38" scale="6" sql-type="numeric" p1:unicode="false" />
+    </property>
+    <property name="Rowguid" type="Guid" p1:ValidateRequired="True" p1:Guid="6ddfbf26-2061-4834-943b-9e3c1e79d377">
+      <Documentation>
+        <Summary>ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.</Summary>
+      </Documentation>
+      <column name="rowguid" default="newid()" not-null="true" sql-type="uniqueidentifier" unique="true" p1:unicode="false" />
+    </property>
+    <property name="ModifiedDate" type="DateTime" p1:ValidateRequired="True" p1:Guid="79168783-58fa-420e-aff2-190dbc831f35">
+      <Documentation>
+        <Summary>Date and time the record was last updated.</Summary>
+      </Documentation>
+      <column name="ModifiedDate" default="getdate()" not-null="true" sql-type="datetime" p1:unicode="false" />
+    </property>
+    <many-to-one name="SalesOrderHeader" class="SalesOrderHeader" cascade="delete" p1:AssociationGuid="8006f95c-a15c-4aff-800c-83ec1e315728" p1:Guid="7800b2e8-04b5-42df-a844-5109074a3974">
+      <column name="SalesOrderID" not-null="true" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+    </many-to-one>
+    <many-to-one name="Product" class="Product" p1:AssociationGuid="d68488f3-95e7-4c8b-8a93-5442c4278295" p1:Guid="b3df54a7-6bf7-474e-b809-6171042fb6cf">
+      <column name="ProductID" not-null="true" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+    </many-to-one>
+  </class>
+  <class name="SalesOrderHeader" table="SalesOrderHeader" schema="SalesLT" p1:Guid="f8fd972e-5da4-4975-a16d-411088412b95">
+    <Documentation>
+      <Summary>General sales order information.</Summary>
+    </Documentation>
+    <id name="SalesOrderID" type="Int32" p1:ValidateRequired="True" p1:Guid="a2d265f0-11f7-4b5b-af61-ff8a66fef57e">
+      <Documentation>
+        <Summary>Primary key.</Summary>
+      </Documentation>
+      <column name="SalesOrderID" not-null="true" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+      <generator class="identity" />
+    </id>
+    <property name="RevisionNumber" type="Byte" p1:ValidateRequired="True" p1:Guid="ab99d32d-9f35-4342-a1c5-240aebd3dab6">
+      <Documentation>
+        <Summary>Incremental number to track changes to the sales order over time.</Summary>
+      </Documentation>
+      <column name="RevisionNumber" default="0" not-null="true" precision="3" scale="0" sql-type="tinyint" p1:unicode="false" />
+    </property>
+    <property name="OrderDate" type="DateTime" p1:ValidateRequired="True" p1:Guid="5d488c12-0f46-482a-876b-310a8d46a189">
+      <Documentation>
+        <Summary>Dates the sales order was created.</Summary>
+      </Documentation>
+      <column name="OrderDate" default="getdate()" not-null="true" sql-type="datetime" p1:unicode="false" />
+    </property>
+    <property name="DueDate" type="DateTime" p1:ValidateRequired="True" p1:Guid="8d54a114-d600-4b3b-bb32-913602b26120">
+      <Documentation>
+        <Summary>Date the order is due to the customer.</Summary>
+      </Documentation>
+      <column name="DueDate" not-null="true" sql-type="datetime" p1:unicode="false" />
+    </property>
+    <property name="ShipDate" type="DateTime" p1:nullable="true" p1:ValidateRequired="False" p1:Guid="dc7c7f64-dfdc-4a72-88e4-c7afa10b7344">
+      <Documentation>
+        <Summary>Date the order was shipped to the customer.</Summary>
+      </Documentation>
+      <column name="ShipDate" not-null="false" sql-type="datetime" p1:unicode="false" />
+    </property>
+    <property name="Status" type="Byte" p1:ValidateRequired="True" p1:Guid="8b8a4686-138c-4293-a5fa-6db72f1a82ce">
+      <Documentation>
+        <Summary>Order current status. 1 = In process; 2 = Approved; 3 = Backordered; 4 = Rejected; 5 = Shipped; 6 = Cancelled</Summary>
+      </Documentation>
+      <column name="Status" default="1" not-null="true" precision="3" scale="0" sql-type="tinyint" p1:unicode="false" />
+    </property>
+    <property name="OnlineOrderFlag" type="Boolean" p1:ValidateRequired="True" p1:Guid="ea3b429f-84bd-4cdd-9ae7-c57e1a9360bb">
+      <Documentation>
+        <Summary>0 = Order placed by sales person. 1 = Order placed online by customer.</Summary>
+      </Documentation>
+      <column name="OnlineOrderFlag" default="1" not-null="true" sql-type="bit" p1:unicode="false" />
+    </property>
+    <property name="SalesOrderNumber" type="String" generated="always" p1:ValidateMaxLength="25" p1:ValidateRequired="True" p1:Guid="a0df569e-0390-42ec-957f-31c047ba7505">
+      <Documentation>
+        <Summary>Unique sales order identification number.</Summary>
+      </Documentation>
+      <column name="SalesOrderNumber" not-null="true" length="25" sql-type="nvarchar" unique="true" p1:unicode="true" />
+    </property>
+    <property name="PurchaseOrderNumber" type="String" p1:nullable="true" p1:ValidateMaxLength="25" p1:ValidateRequired="False" p1:Guid="07f12034-772d-4050-8fe1-18b4fb3daeb7">
+      <Documentation>
+        <Summary>Customer purchase order number reference. </Summary>
+      </Documentation>
+      <column name="PurchaseOrderNumber" not-null="false" length="25" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="AccountNumber" type="String" p1:nullable="true" p1:ValidateMaxLength="15" p1:ValidateRequired="False" p1:Guid="4d1c4918-0f53-4a50-bbb2-f127c4caa13f">
+      <Documentation>
+        <Summary>Financial accounting number reference.</Summary>
+      </Documentation>
+      <column name="AccountNumber" not-null="false" length="15" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="ShipMethod" type="String" p1:ValidateMaxLength="50" p1:ValidateRequired="True" p1:Guid="9c24b1e0-fb05-4cee-ba26-44d179ebb34e">
+      <Documentation>
+        <Summary>Shipping method. Foreign key to ShipMethod.ShipMethodID.</Summary>
+      </Documentation>
+      <column name="ShipMethod" not-null="true" length="50" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="CreditCardApprovalCode" type="String" p1:nullable="true" p1:ValidateMaxLength="15" p1:ValidateRequired="False" p1:Guid="6b414301-2444-4641-a2f0-b51d7eb6ab18">
+      <Documentation>
+        <Summary>Approval code provided by the credit card company.</Summary>
+      </Documentation>
+      <column name="CreditCardApprovalCode" not-null="false" length="15" sql-type="varchar" p1:unicode="false" />
+    </property>
+    <property name="SubTotal" type="Decimal" p1:ValidateRequired="True" p1:Guid="0f273b7b-707e-41a6-a4ac-dcf150c511cd">
+      <Documentation>
+        <Summary>Sales subtotal. Computed as SUM(SalesOrderDetail.LineTotal)for the appropriate SalesOrderID.</Summary>
+      </Documentation>
+      <column name="SubTotal" default="0.00" not-null="true" precision="19" scale="4" sql-type="money" p1:unicode="false" />
+    </property>
+    <property name="TaxAmt" type="Decimal" p1:ValidateRequired="True" p1:Guid="8c51f6cc-afa7-4415-bf2b-a0d92ab2c2cc">
+      <Documentation>
+        <Summary>Tax amount.</Summary>
+      </Documentation>
+      <column name="TaxAmt" default="0.00" not-null="true" precision="19" scale="4" sql-type="money" p1:unicode="false" />
+    </property>
+    <property name="Freight" type="Decimal" p1:ValidateRequired="True" p1:Guid="ee7128ee-5104-48e6-8e8e-1983a59d7186">
+      <Documentation>
+        <Summary>Shipping cost.</Summary>
+      </Documentation>
+      <column name="Freight" default="0.00" not-null="true" precision="19" scale="4" sql-type="money" p1:unicode="false" />
+    </property>
+    <property name="TotalDue" type="Decimal" generated="always" p1:ValidateRequired="True" p1:Guid="92d365a9-a724-4746-a6ec-6e63a726dfd8">
+      <Documentation>
+        <Summary>Total due from customer. Computed as Subtotal + TaxAmt + Freight.</Summary>
+      </Documentation>
+      <column name="TotalDue" not-null="true" precision="19" scale="4" sql-type="money" p1:unicode="false" />
+    </property>
+    <property name="Comment" type="String" p1:nullable="true" p1:ValidateRequired="False" p1:Guid="764a0030-9857-430d-bf35-d70cd511195e">
+      <Documentation>
+        <Summary>Sales representative comments.</Summary>
+      </Documentation>
+      <column name="Comment" not-null="false" sql-type="nvarchar" p1:unicode="true" />
+    </property>
+    <property name="Rowguid" type="Guid" p1:ValidateRequired="True" p1:Guid="150df8eb-e940-407e-ac0f-3a4f4b9dbcca">
+      <Documentation>
+        <Summary>ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.</Summary>
+      </Documentation>
+      <column name="rowguid" default="newid()" not-null="true" sql-type="uniqueidentifier" unique="true" p1:unicode="false" />
+    </property>
+    <property name="ModifiedDate" type="DateTime" p1:ValidateRequired="True" p1:Guid="8814dd9d-8184-42ea-8b70-a8452744a831">
+      <Documentation>
+        <Summary>Date and time the record was last updated.</Summary>
+      </Documentation>
+      <column name="ModifiedDate" default="getdate()" not-null="true" sql-type="datetime" p1:unicode="false" />
+    </property>
+    <many-to-one name="Customer" class="Customer" p1:AssociationGuid="fd4c7908-f662-4073-90a4-d5ea3522da11" p1:Guid="68c2de2f-35d9-4524-8739-e6d5b5810ba6">
+      <column name="CustomerID" not-null="true" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+    </many-to-one>
+    <many-to-one name="Address_ShipToAddressID" class="Address" p1:AssociationGuid="9b6207a8-78f8-4ffe-bfee-0ce23ed43608" p1:Guid="a568e978-9887-468c-924f-3bc584b41203">
+      <column name="ShipToAddressID" not-null="false" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+    </many-to-one>
+    <many-to-one name="Address_BillToAddressID" class="Address" p1:AssociationGuid="2a72ea2e-ce45-4975-8615-d212b6ab2723" p1:Guid="365ae4ba-19a4-4f1f-b928-58ce070ea234">
+      <column name="BillToAddressID" not-null="false" precision="10" scale="0" sql-type="int" p1:unicode="false" />
+    </many-to-one>
+    <set name="SalesOrderDetails" inverse="true" generic="false" p1:AssociationGuid="8006f95c-a15c-4aff-800c-83ec1e315728" p1:Guid="fb084511-01b4-4148-9888-029963aa10eb">
+      <key>
+        <column name="SalesOrderID" />
+      </key>
+      <one-to-many class="SalesOrderDetail" />
+    </set>
+  </class>
+</hibernate-mapping>

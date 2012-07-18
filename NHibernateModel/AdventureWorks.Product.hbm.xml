@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping namespace="AdventureWorksLT2008Model" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Product" table="Product" schema="SalesLT">
+    <id name="ProductID" type="Int32">
+      <column name="ProductID" not-null="true" precision="10" scale="0" sql-type="int" />
+      <generator class="identity" />
+    </id>
+    <property name="Name" type="String">
+      <column name="Name" not-null="true" length="50" sql-type="nvarchar" unique="true" />
+    </property>
+    <property name="ProductNumber" type="String">
+      <column name="ProductNumber" not-null="true" length="25" sql-type="nvarchar" unique="true" />
+    </property>
+    <property name="Color" type="String">
+      <column name="Color" not-null="false" length="15" sql-type="nvarchar" />
+    </property>
+    <property name="StandardCost" type="Decimal">
+      <column name="StandardCost" not-null="true" precision="19" scale="4" sql-type="money" />
+    </property>
+    <property name="ListPrice" type="Decimal">
+      <column name="ListPrice" not-null="true" precision="19" scale="4" sql-type="money" />
+    </property>
+    <property name="Size" type="String">
+      <column name="Size" not-null="false" length="5" sql-type="nvarchar" />
+    </property>
+    <property name="Weight" type="Decimal">
+      <column name="Weight" not-null="false" precision="8" scale="2" sql-type="decimal" />
+    </property>
+    <property name="SellStartDate" type="DateTime">
+      <column name="SellStartDate" not-null="true" sql-type="datetime" />
+    </property>
+    <property name="SellEndDate" type="DateTime">
+      <column name="SellEndDate" not-null="false" sql-type="datetime" />
+    </property>
+    <property name="DiscontinuedDate" type="DateTime">
+      <column name="DiscontinuedDate" not-null="false" sql-type="datetime" />
+    </property>
+    <property name="ThumbNailPhoto" type="Byte[]">
+      <column name="ThumbNailPhoto" not-null="false" sql-type="varbinary" />
+    </property>
+    <property name="ThumbnailPhotoFileName" type="String">
+      <column name="ThumbnailPhotoFileName" not-null="false" length="50" sql-type="nvarchar" />
+    </property>
+    <property name="Rowguid" type="Guid">
+      <column name="rowguid" default="newid()" not-null="true" sql-type="uniqueidentifier" unique="true" />
+    </property>
+    <property name="ModifiedDate" type="DateTime">
+      <column name="ModifiedDate" default="getdate()" not-null="true" sql-type="datetime" />
+    </property>
+    <many-to-one name="ProductModel" class="ProductModel">
+      <column name="ProductModelID" not-null="false" precision="10" scale="0" sql-type="int" />
+    </many-to-one>
+    <many-to-one name="ProductCategory" class="ProductCategory">
+      <column name="ProductCategoryID" not-null="false" precision="10" scale="0" sql-type="int" />
+    </many-to-one>
+    <set name="SalesOrderDetails" inverse="true" generic="false">
+      <key>
+        <column name="ProductID" />
+      </key>
+      <one-to-many class="SalesOrderDetail" />
+    </set>
+  </class>
+</hibernate-mapping>

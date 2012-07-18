@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping namespace="AdventureWorksLT2008Model" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="ProductModelProductDescription" table="ProductModelProductDescription" schema="SalesLT">
+    <composite-id>
+      <key-property name="ProductModelID" type="Int32">
+        <column name="ProductModelID" not-null="true" precision="10" scale="0" sql-type="int" />
+      </key-property>
+      <key-property name="ProductDescriptionID" type="Int32">
+        <column name="ProductDescriptionID" not-null="true" precision="10" scale="0" sql-type="int" />
+      </key-property>
+      <key-property name="Culture" type="String">
+        <column name="Culture" not-null="true" length="6" sql-type="nchar" />
+      </key-property>
+    </composite-id>
+    <property name="Rowguid" type="Guid">
+      <column name="rowguid" default="newid()" not-null="true" sql-type="uniqueidentifier" unique="true" />
+    </property>
+    <property name="ModifiedDate" type="DateTime">
+      <column name="ModifiedDate" default="getdate()" not-null="true" sql-type="datetime" />
+    </property>
+    <many-to-one name="ProductDescription" class="ProductDescription">
+      <column name="ProductDescriptionID" not-null="true" precision="10" scale="0" sql-type="int" />
+    </many-to-one>
+    <many-to-one name="ProductModel" class="ProductModel">
+      <column name="ProductModelID" not-null="true" precision="10" scale="0" sql-type="int" />
+    </many-to-one>
+  </class>
+</hibernate-mapping>

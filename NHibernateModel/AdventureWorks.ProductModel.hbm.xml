@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping namespace="AdventureWorksLT2008Model" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="ProductModel" table="ProductModel" schema="SalesLT">
+    <id name="ProductModelID" type="Int32">
+      <column name="ProductModelID" not-null="true" precision="10" scale="0" sql-type="int" />
+      <generator class="identity" />
+    </id>
+    <property name="Name" type="String">
+      <column name="Name" not-null="true" length="50" sql-type="nvarchar" unique="true" />
+    </property>
+    <property name="CatalogDescription" type="StringClob">
+      <column name="CatalogDescription" not-null="false" sql-type="xml" />
+    </property>
+    <property name="Rowguid" type="Guid">
+      <column name="rowguid" default="newid()" not-null="true" sql-type="uniqueidentifier" unique="true" />
+    </property>
+    <property name="ModifiedDate" type="DateTime">
+      <column name="ModifiedDate" default="getdate()" not-null="true" sql-type="datetime" />
+    </property>
+    <set name="Products" inverse="true" generic="false">
+      <key>
+        <column name="ProductModelID" />
+      </key>
+      <one-to-many class="Product" />
+    </set>
+    <set name="ProductModelProductDescriptions" inverse="true" generic="false">
+      <key>
+        <column name="ProductModelID" />
+      </key>
+      <one-to-many class="ProductModelProductDescription" />
+    </set>
+  </class>
+</hibernate-mapping>

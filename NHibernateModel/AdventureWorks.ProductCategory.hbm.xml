@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping namespace="AdventureWorksLT2008Model" xmlns="urn:nhibernate-mapping-2.2">
+  <class name="ProductCategory" table="ProductCategory" schema="SalesLT">
+    <id name="ProductCategoryID" type="Int32">
+      <column name="ProductCategoryID" not-null="true" precision="10" scale="0" sql-type="int" />
+      <generator class="identity" />
+    </id>
+    <property name="Name" type="String">
+      <column name="Name" not-null="true" length="50" sql-type="nvarchar" unique="true" />
+    </property>
+    <property name="Rowguid" type="Guid">
+      <column name="rowguid" default="newid()" not-null="true" sql-type="uniqueidentifier" unique="true" />
+    </property>
+    <property name="ModifiedDate" type="DateTime">
+      <column name="ModifiedDate" default="getdate()" not-null="true" sql-type="datetime" />
+    </property>
+    <many-to-one name="ProductCategory_ParentProductCategoryID" class="ProductCategory">
+      <column name="ParentProductCategoryID" not-null="false" precision="10" scale="0" sql-type="int" />
+    </many-to-one>
+    <set name="Products" inverse="true" generic="false">
+      <key>
+        <column name="ProductCategoryID" />
+      </key>
+      <one-to-many class="Product" />
+    </set>
+    <set name="ProductCategories_ParentProductCategoryID" inverse="true" generic="false">
+      <key>
+        <column name="ParentProductCategoryID" />
+      </key>
+      <one-to-many class="ProductCategory" />
+    </set>
+  </class>
+</hibernate-mapping>
