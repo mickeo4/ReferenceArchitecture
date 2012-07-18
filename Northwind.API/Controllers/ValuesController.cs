@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 
-namespace Northwind.API.Controllers
+namespace Northwind.WebAPI.Controllers
 {
     public class ValuesController : ApiController
     {
