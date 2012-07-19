@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using Northwind.MVC.Models;
+using AdventureWorks.MVC.Models;
 
-namespace Northwind.MVC.Controllers
+namespace AdventureWorks.MVC.Controllers
 {
 
     [Authorize]

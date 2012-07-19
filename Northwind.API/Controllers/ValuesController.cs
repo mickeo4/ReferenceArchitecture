@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
 
-namespace Northwind.WebAPI.Controllers
+namespace AdventureWorks.WebAPI.Controllers
 {
     public class ValuesController : ApiController
     {

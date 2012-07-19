@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using AdventureWorks.MVC.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Northwind.MVC;
-using Northwind.MVC.Controllers;
+using AdventureWorks.MVC;
 
-namespace Northwind.MVC.Tests.Controllers
+namespace AdventureWorks.Tests.Controllers
 {
     [TestClass]
     public class HomeControllerTest

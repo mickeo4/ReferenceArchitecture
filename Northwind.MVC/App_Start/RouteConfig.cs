@@ -6,7 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Northwind.MVC
+namespace AdventureWorks.MVC
 {
     public class RouteConfig
     {

@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace Northwind.MVC
+namespace AdventureWorks.MVC
 {
     public class FilterConfig
     {

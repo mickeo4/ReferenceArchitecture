@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
 
-namespace Northwind.MVC.Models
+namespace AdventureWorks.MVC.Models
 {
 
     public class ChangePasswordModel

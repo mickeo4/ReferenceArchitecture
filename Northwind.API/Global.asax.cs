@@ -1,8 +1,9 @@
 ﻿using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Microsoft.Web.Optimization;
 
-namespace Northwind.WebAPI
+namespace AdventureWorks.WebAPI
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
@@ -38,7 +39,6 @@ namespace Northwind.WebAPI
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
 
-            BundleTable.Bundles.RegisterTemplateBundles();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace Northwind.MVC
+namespace AdventureWorks.MVC
 {
     public class BundleConfig
     {

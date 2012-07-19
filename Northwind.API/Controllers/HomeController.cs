@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Northwind.WebAPI.Controllers
+namespace AdventureWorks.WebAPI.Controllers
 {
     public class HomeController : Controller
     {
