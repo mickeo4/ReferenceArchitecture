@@ -13,7 +13,7 @@ using AdventureWorks.Domain;
 
 namespace AdventureWorks.MVC.NHibernate
 {
-   public class FNHSessionFactory
+   public class FNHSessionManager<T> : IFNHSessionManager, IDisposable
    {
        private readonly ISessionFactory _sessionFactory;
 
@@ -36,8 +36,8 @@ namespace AdventureWorks.MVC.NHibernate
 
        private readonly ITransaction _transaction;
 
-       public FNHSessionFactory()
-        {
+       public FNHSessionManager()
+       {
             String dbConnection = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
             _sessionFactory = Fluently.Configure()
