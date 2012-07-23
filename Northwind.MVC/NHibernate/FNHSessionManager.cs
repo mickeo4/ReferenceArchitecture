@@ -13,7 +13,7 @@ using AdventureWorks.Domain;
 
 namespace AdventureWorks.MVC.NHibernate
 {
-   public class FNHSessionManager<T> : IFNHSessionManager, IDisposable
+    public class FNHSessionManager : IFNHSessionManager, IDisposable
    {
        private readonly ISessionFactory _sessionFactory;
 

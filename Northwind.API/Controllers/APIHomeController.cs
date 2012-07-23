@@ -2,7 +2,7 @@
 
 namespace AdventureWorks.WebAPI.Controllers
 {
-    public class HomeController : Controller
+    public class APIHomeController : Controller
     {
         public ActionResult Index()
         {

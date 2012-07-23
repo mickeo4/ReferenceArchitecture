@@ -1,6 +1,8 @@
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using Unity.Mvc3;
+using AdventureWorks.MVC.NHibernate;
+using AdventureWorks.Domain;
 
 namespace AdventureWorks.MVC
 {
@@ -20,7 +22,8 @@ namespace AdventureWorks.MVC
             // register all your components with the container here
             // it is NOT necessary to register your controllers
             
-            // e.g. container.RegisterType<ITestService, TestService>();            
+            container.RegisterType<IFNHSessionManager, FNHSessionManager>();
+            container.RegisterType<IFNHRepository<Customer>, FNHRepository<Customer>>();  
 
             return container;
         }
