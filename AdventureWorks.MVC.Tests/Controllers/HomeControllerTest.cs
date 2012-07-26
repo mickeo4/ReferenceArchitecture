@@ -13,7 +13,7 @@ namespace AdventureWorks.Tests.Controllers
     public class HomeControllerTest
     {
         [TestMethod]
-        public void Index()
+        public void Test_When_Home_Controller_Index_Action_Called_That_Splash_View_Result_Is_Not_Null()
         {
             // Arrange
             //HomeController controller = new HomeController();
@@ -22,33 +22,22 @@ namespace AdventureWorks.Tests.Controllers
             //ViewResult result = controller.Index() as ViewResult;
 
             // Assert
-            //Assert.AreEqual("Modify this template to kick-start your ASP.NET MVC application.", result.ViewBag.Message);
+            //Assert.IsNotNull(result, "View result was null when expecting 'Index' result");
         }
 
         [TestMethod]
-        public void About()
+        public void Test_When_Home_Controller_Index_Action_Called_That_Splash_View_Returned()
         {
             // Arrange
             //HomeController controller = new HomeController();
 
             // Act
-            //ViewResult result = controller.About() as ViewResult;
+            //ViewResult result = controller.Index() as ViewResult;
 
             // Assert
-            //Assert.IsNotNull(result);
+            //Assert.AreEqual(result.ViewName, "Index", "View name was not equal to 'Index'");
         }
 
-        [TestMethod]
-        public void Contact()
-        {
-            // Arrange
-            //HomeController controller = new HomeController();
-
-            // Act
-            //ViewResult result = controller.Contact() as ViewResult;
-
-            // Assert
-            //Assert.IsNotNull(result);
-        }
+        
     }
 }

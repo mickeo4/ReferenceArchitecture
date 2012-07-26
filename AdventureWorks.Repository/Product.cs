@@ -114,7 +114,8 @@ namespace AdventureWorks.Repository
                 .CustomSqlType("datetime");
               Map(x => x.ThumbNailPhoto)    
                 .Column("ThumbNailPhoto")
-                .CustomType("Binary")
+                .CustomSqlType("Binary")
+                //.CustomType("Binary")
                 .Access.Property()
                 .Generated.Never()
                 .CustomSqlType("varbinary");

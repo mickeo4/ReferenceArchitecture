@@ -10,12 +10,17 @@ namespace AdventureWorks.MVC.Controllers
 {
     public class HomeController : Controller
     {
-        private IFNHRepository<Customer> customerRepository;
+        //private IFNHRepository<Customer> customerRepository;
 
 
-        public HomeController(IFNHRepository<Customer> custRepo)
+        //public HomeController(IFNHRepository<Customer> custRepo)
+        //{
+        //    customerRepository = custRepo;
+        //}
+
+        public HomeController()
         {
-            customerRepository = custRepo;
+
         }
 
         public ActionResult Index()

@@ -45,7 +45,7 @@ namespace AdventureWorks.MVC.NHibernate
                     MsSqlConfiguration.MsSql2008
                         .ConnectionString(dbConnection)
                 )
-                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<Customer>())
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<AdventureWorks.Repository.CustomerMap>())
                 .CurrentSessionContext(typeof(ManagedWebSessionContext).FullName)
                 .BuildSessionFactory();
             
