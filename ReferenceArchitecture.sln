@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Repository",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Domain", "AdventureWorks.Domain\AdventureWorks.Domain.csproj", "{DEEC3379-1EC7-4C36-A2D7-C7D4FCD79A79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.ApplicationServices", "AdventureWorks.ApplicationServices\AdventureWorks.ApplicationServices.csproj", "{8AB7ACE7-1CEB-4A6A-9251-E195DE48E158}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.CrossCutting", "AdventureWorks.CrossCutting\AdventureWorks.CrossCutting.csproj", "{AA0A84B7-37B3-45EE-8F25-E247B3E7717C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +41,14 @@ Global
 		{DEEC3379-1EC7-4C36-A2D7-C7D4FCD79A79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEEC3379-1EC7-4C36-A2D7-C7D4FCD79A79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEEC3379-1EC7-4C36-A2D7-C7D4FCD79A79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AB7ACE7-1CEB-4A6A-9251-E195DE48E158}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AB7ACE7-1CEB-4A6A-9251-E195DE48E158}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AB7ACE7-1CEB-4A6A-9251-E195DE48E158}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AB7ACE7-1CEB-4A6A-9251-E195DE48E158}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA0A84B7-37B3-45EE-8F25-E247B3E7717C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA0A84B7-37B3-45EE-8F25-E247B3E7717C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA0A84B7-37B3-45EE-8F25-E247B3E7717C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA0A84B7-37B3-45EE-8F25-E247B3E7717C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

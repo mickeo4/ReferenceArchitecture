@@ -4,6 +4,9 @@ using Unity.Mvc3;
 using AdventureWorks.MVC.NHibernate;
 using AdventureWorks.Domain;
 using AdventureWorks.MVC.Controllers;
+using AdventureWorks.CrossCutting.NHibernate;
+using AdventureWorks.Repository.NHibernate;
+using AdventureWorks.ApplicationServices.GetCustomers;
 
 namespace AdventureWorks.MVC
 {
@@ -22,8 +25,24 @@ namespace AdventureWorks.MVC
 
             // register all your components with the container here
             // it is NOT necessary to register your controllers
-            container.RegisterType<IFNHSessionManager, FNHSessionManager>();
-            container.RegisterType<IFNHRepository<Customer>, FNHRepository<Customer>>();  
+
+            #region Architecture Registrations
+
+            container.RegisterType<ISessionManager, SessionManager>();
+
+            #endregion
+
+            #region Application Services Registrations
+
+            container.RegisterType<IGetCustomersByPage, GetCustomersByPage>();
+
+            #endregion
+
+            #region Repository Registrations
+
+            container.RegisterType<IQueryableRepository<Customer>, QueryableRepository<Customer>>();
+
+            #endregion
 
             return container;
         }

@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{94B08A5E-F944-4A96-8E5A-91646A04CCE7}</ProjectGuid>
+    <ProjectGuid>{8AB7ACE7-1CEB-4A6A-9251-E195DE48E158}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AdventureWorks.Repository</RootNamespace>
-    <AssemblyName>AdventureWorks.Repository</AssemblyName>
+    <RootNamespace>AdventureWorks.ApplicationServices</RootNamespace>
+    <AssemblyName>AdventureWorks.ApplicationServices</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,15 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentNHibernate">
-      <HintPath>..\packages\FluentNHibernate.1.3.0.733\lib\FluentNHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="Iesi.Collections">
-      <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate">
-      <HintPath>..\packages\NHibernate.3.3.1.4000\lib\Net35\NHibernate.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,21 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Address.cs" />
-    <Compile Include="Customer.cs" />
-    <Compile Include="CustomerAddress.cs" />
-    <Compile Include="NHibernate\QueryableRepository.cs" />
-    <Compile Include="Product.cs" />
-    <Compile Include="ProductCategory.cs" />
-    <Compile Include="ProductDescription.cs" />
-    <Compile Include="ProductModel.cs" />
-    <Compile Include="ProductModelProductDescription.cs" />
-    <Compile Include="SalesOrderDetail.cs" />
-    <Compile Include="SalesOrderHeader.cs" />
+    <Compile Include="GetCustomers\GetCustomersByPage.cs" />
+    <Compile Include="GetCustomers\IGetCustomersByPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AdventureWorks.CrossCutting\AdventureWorks.CrossCutting.csproj">
@@ -73,6 +52,10 @@
     <ProjectReference Include="..\AdventureWorks.Domain\AdventureWorks.Domain.csproj">
       <Project>{DEEC3379-1EC7-4C36-A2D7-C7D4FCD79A79}</Project>
       <Name>AdventureWorks.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AdventureWorks.Repository\AdventureWorks.Repository.csproj">
+      <Project>{94B08A5E-F944-4A96-8E5A-91646A04CCE7}</Project>
+      <Name>AdventureWorks.Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -3,25 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using AdventureWorks.MVC.NHibernate;
+using AdventureWorks.CrossCutting;
 using AdventureWorks.Domain;
+using AdventureWorks.ApplicationServices.GetCustomers;
 
 namespace AdventureWorks.MVC.Controllers
 {
     public class HomeController : Controller
     {
-        //private IFNHRepository<Customer> customerRepository;
-
-
-        //public HomeController(IFNHRepository<Customer> custRepo)
-        //{
-        //    customerRepository = custRepo;
-        //}
+        #region Constructor
 
         public HomeController()
         {
-
+            
         }
+
+        #endregion
+
+        #region Actions
 
         public ActionResult Index()
         {
@@ -43,5 +42,7 @@ namespace AdventureWorks.MVC.Controllers
 
             return View();
         }
+
+        #endregion
     }
 }

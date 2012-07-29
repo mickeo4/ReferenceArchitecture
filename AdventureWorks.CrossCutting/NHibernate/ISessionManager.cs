@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using AdventureWorks.CrossCutting;
 using NHibernate;
 
-namespace AdventureWorks.MVC.NHibernate
+namespace AdventureWorks.CrossCutting.NHibernate
 {
-    public interface IFNHSessionManager
+    public interface ISessionManager
     {
         ISession Session { get; }
 

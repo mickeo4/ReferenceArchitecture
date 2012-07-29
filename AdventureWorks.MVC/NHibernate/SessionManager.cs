@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
-using NHibernate.Cfg;
-using NHibernate.Tool.hbm2ddl;
 using NHibernate.Context;
-using AdventureWorks.Domain;
+using System.Web;
+using AdventureWorks.CrossCutting.NHibernate;
 
 namespace AdventureWorks.MVC.NHibernate
 {
-    public class FNHSessionManager : IFNHSessionManager, IDisposable
+    public class SessionManager : ISessionManager, IDisposable
    {
        private readonly ISessionFactory _sessionFactory;
 
@@ -36,7 +31,7 @@ namespace AdventureWorks.MVC.NHibernate
 
        private readonly ITransaction _transaction;
 
-       public FNHSessionManager()
+       public SessionManager()
        {
             String dbConnection = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 

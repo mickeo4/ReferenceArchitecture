@@ -35,6 +35,9 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -97,6 +100,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\CustomerControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
@@ -107,9 +111,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AdventureWorks.ApplicationServices\AdventureWorks.ApplicationServices.csproj">
+      <Project>{8AB7ACE7-1CEB-4A6A-9251-E195DE48E158}</Project>
+      <Name>AdventureWorks.ApplicationServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AdventureWorks.Domain\AdventureWorks.Domain.csproj">
+      <Project>{DEEC3379-1EC7-4C36-A2D7-C7D4FCD79A79}</Project>
+      <Name>AdventureWorks.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AdventureWorks.MVC\AdventureWorks.MVC.csproj">
       <Project>{B92015AF-8734-4261-9FFA-23D3B0CC9F98}</Project>
       <Name>AdventureWorks.MVC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AdventureWorks.Repository\AdventureWorks.Repository.csproj">
+      <Project>{94B08A5E-F944-4A96-8E5A-91646A04CCE7}</Project>
+      <Name>AdventureWorks.Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

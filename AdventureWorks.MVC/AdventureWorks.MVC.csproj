@@ -147,16 +147,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Account\AccountController.cs" />
+    <Compile Include="Controllers\Customer\CustomerController.cs" />
+    <Compile Include="Controllers\Home\HomeController.cs" />
+    <Compile Include="Filters\ModelStateToTempData.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="NHibernate\FNHRepository.cs" />
-    <Compile Include="NHibernate\IFNHRepository.cs" />
-    <Compile Include="NHibernate\FNHSessionManager.cs" />
-    <Compile Include="NHibernate\IFNHSessionManager.cs" />
+    <Compile Include="Models\Account\AccountModels.cs" />
+    <Compile Include="Models\Customer\CustomerEditModel.cs" />
+    <Compile Include="Models\Customer\CustomerViewModel.cs" />
+    <Compile Include="NHibernate\SessionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -250,11 +251,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Customer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AdventureWorks.ApplicationServices\AdventureWorks.ApplicationServices.csproj">
+      <Project>{8AB7ACE7-1CEB-4A6A-9251-E195DE48E158}</Project>
+      <Name>AdventureWorks.ApplicationServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AdventureWorks.CrossCutting\AdventureWorks.CrossCutting.csproj">
+      <Project>{AA0A84B7-37B3-45EE-8F25-E247B3E7717C}</Project>
+      <Name>AdventureWorks.CrossCutting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AdventureWorks.Domain\AdventureWorks.Domain.csproj">
       <Project>{DEEC3379-1EC7-4C36-A2D7-C7D4FCD79A79}</Project>
       <Name>AdventureWorks.Domain</Name>

@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{94B08A5E-F944-4A96-8E5A-91646A04CCE7}</ProjectGuid>
+    <ProjectGuid>{AA0A84B7-37B3-45EE-8F25-E247B3E7717C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AdventureWorks.Repository</RootNamespace>
-    <AssemblyName>AdventureWorks.Repository</AssemblyName>
+    <RootNamespace>AdventureWorks.CrossCutting</RootNamespace>
+    <AssemblyName>AdventureWorks.CrossCutting</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,8 +40,13 @@
     <Reference Include="NHibernate">
       <HintPath>..\packages\NHibernate.3.3.1.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="NHibernate.Linq">
+      <HintPath>..\packages\NHibernate.Linq.1.0\lib\NHibernate.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,31 +54,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Address.cs" />
-    <Compile Include="Customer.cs" />
-    <Compile Include="CustomerAddress.cs" />
-    <Compile Include="NHibernate\QueryableRepository.cs" />
-    <Compile Include="Product.cs" />
-    <Compile Include="ProductCategory.cs" />
-    <Compile Include="ProductDescription.cs" />
-    <Compile Include="ProductModel.cs" />
-    <Compile Include="ProductModelProductDescription.cs" />
-    <Compile Include="SalesOrderDetail.cs" />
-    <Compile Include="SalesOrderHeader.cs" />
+    <Compile Include="Guard.cs" />
+    <Compile Include="NHibernate\IQueryableRepository.cs" />
+    <Compile Include="NHibernate\ISessionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValidationResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AdventureWorks.CrossCutting\AdventureWorks.CrossCutting.csproj">
-      <Project>{AA0A84B7-37B3-45EE-8F25-E247B3E7717C}</Project>
-      <Name>AdventureWorks.CrossCutting</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AdventureWorks.Domain\AdventureWorks.Domain.csproj">
-      <Project>{DEEC3379-1EC7-4C36-A2D7-C7D4FCD79A79}</Project>
-      <Name>AdventureWorks.Domain</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
