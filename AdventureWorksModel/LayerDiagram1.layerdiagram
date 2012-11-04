@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<layerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="d4ff3be6-c9d7-4325-b55e-10e445d00725" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/LayerDesigner">
+  <layers>
+    <layer Id="4dda04b8-cc9c-4f4f-9365-e6f62dd65524" name="Web MVC">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="5fbb09d0-010b-4edc-b2a0-9650d452bc57" direction="Forward">
+          <layerMoniker Id="5d9f038f-71b4-47a1-b294-9d746623463f" />
+        </dependencyFromLayerToLayer>
+        <dependencyFromLayerToLayer Id="6daf5e83-9910-4ed6-9826-29e88ccff946" direction="Forward">
+          <layerMoniker Id="91dfc0c6-e926-4143-9f33-cfc29dd942f1" />
+        </dependencyFromLayerToLayer>
+        <dependencyFromLayerToLayer Id="2f5b47a4-c105-4bb7-a015-9fc2db899cbf" direction="Forward">
+          <layerMoniker Id="ce2f39e8-8be3-4588-9724-0483c56c339e" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+    </layer>
+    <layer Id="91dfc0c6-e926-4143-9f33-cfc29dd942f1" name="Application Services">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="ce5886d9-8fd4-49c3-a92a-a673b34dcffc" direction="Forward">
+          <layerMoniker Id="5d9f038f-71b4-47a1-b294-9d746623463f" />
+        </dependencyFromLayerToLayer>
+        <dependencyFromLayerToLayer Id="217a73a2-dc2f-4fcf-895a-7c3cdf9105fc" direction="Forward">
+          <layerMoniker Id="688af2c3-511e-42b1-9792-dc5113ed0acb" />
+        </dependencyFromLayerToLayer>
+        <dependencyFromLayerToLayer Id="9b1b5473-578a-449b-997d-cb5e376d53cf" direction="Forward">
+          <layerMoniker Id="ce2f39e8-8be3-4588-9724-0483c56c339e" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+    </layer>
+    <layer Id="688af2c3-511e-42b1-9792-dc5113ed0acb" name="Repository">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="c6825ce9-9fda-4668-a048-742158baf0e7" direction="Forward">
+          <layerMoniker Id="5d9f038f-71b4-47a1-b294-9d746623463f" />
+        </dependencyFromLayerToLayer>
+        <dependencyFromLayerToLayer Id="8f3d1ae6-336e-44b3-8ced-b598f2abf4e8" direction="Forward">
+          <layerMoniker Id="ce2f39e8-8be3-4588-9724-0483c56c339e" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+    </layer>
+    <layer Id="5d9f038f-71b4-47a1-b294-9d746623463f" name="Cross Cutting" />
+    <layer Id="ce2f39e8-8be3-4588-9724-0483c56c339e" name="Domain" />
+  </layers>
+</layerModel>

@@ -41,15 +41,24 @@ namespace AdventureWorks.MVC.Controllers
         [ModelStateToTempData]
         public ActionResult Index(int? page, int? pageSize)
         {
+            return View("CustomerList");
+        }
+
+        [HttpGet]
+        [ModelStateToTempData]
+        public JsonResult GetCustomers(int? page, int? pageSize)
+        {
             Result<IEnumerable<Customer>> result = customerService.Execute(page.GetValueOrDefault(0), pageSize.GetValueOrDefault(10));
 
-            Guard.Against<ArgumentNullException>(result.Entity == null, "Result cannot be null when loading customers");
+            return Json(new { data = result.Entity, total = result.Entity.Count() }, JsonRequestBehavior.AllowGet);
 
-            var model = new CustomerViewModel();
+            //Guard.Against<ArgumentNullException>(result.Entity == null, "Result cannot be null when loading customers");
 
-            model.Customers = result.Entity;
+            //var model = new CustomerViewModel();
 
-            return View(model);
+            //model.Customers = result.Entity;
+
+            //return View("CustomerList", model);
         }
 
         #endregion

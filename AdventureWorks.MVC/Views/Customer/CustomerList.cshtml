@@ -1,0 +1,56 @@
+﻿@model AdventureWorks.MVC.Models.Customer.CustomerViewModel
+
+@{
+    ViewBag.Title = "CustomerList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <title></title>
+    <script src="../../Scripts/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="../../Scripts/kendo/2012.2.710/kendo.grid.min.js" type="text/javascript"></script>
+    <link href="../../Content/kendo/2012.2.710/kendo.common.min.css" rel="stylesheet" />
+    <link href="../../Content/kendo/2012.2.710/kendo.default.min.css" rel="stylesheet" />
+</head>
+@using (Html.BeginForm()) {
+ 
+  @* <script src="../../content/shared/js/people.js" type="text/javascript"></script>*@
+    <div id="example" class="k-content">
+        <div id="clientsDb">
+            <div id="grid" style="height: 380px">
+            </div>
+        </div>
+        <style scoped>
+            #clientsDb
+            {
+                width: 692px;
+                height: 413px;
+                margin: 30px auto;
+                padding: 51px 4px 0 4px;
+                background: url('../../content/web/grid/clientsDb.png') no-repeat 0 0;
+            }
+        </style>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#grid").kendoGrid({
+                    dataSource: {
+                        type: "json",
+                        transport: {
+                            read: {
+                                url: "Customer/GetCustomers",
+                                dataType: "json",
+                                type: "GET",
+                                data: { id: "@ViewBag.CustomerEstimateKey" }
+                            }
+                        },
+                        schema: {
+                            data: "data",
+                            total: "total"
+                        }
+                    }
+                });
+            });
+        </script>
+    </div> 
+}
+
