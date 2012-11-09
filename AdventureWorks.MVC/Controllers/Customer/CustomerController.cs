@@ -41,7 +41,15 @@ namespace AdventureWorks.MVC.Controllers
         [ModelStateToTempData]
         public ActionResult Index(int? page, int? pageSize)
         {
-            return View("CustomerList");
+            Result<IEnumerable<Customer>> result = customerService.Execute(page.GetValueOrDefault(0), pageSize.GetValueOrDefault(10));
+
+            Guard.Against<ArgumentNullException>(result.Entity == null, "Result cannot be null when loading customers");
+
+            var model = new CustomerViewModel();
+
+            model.Customers = result.Entity;
+
+            return View("CustomerList", model);
         }
 
         [HttpGet]
