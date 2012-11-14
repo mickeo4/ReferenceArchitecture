@@ -13,31 +13,51 @@ namespace AdventureWorks.Tests.Controllers
     public class HomeControllerTest
     {
         [TestMethod]
-        public void Test_When_Home_Controller_Index_Action_Called_That_Splash_View_Result_Is_Not_Null()
+        public void Test_When_Home_Controller_Index_Action_Called_That_Index_View_Returned()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            const string expectedViewName = "Index";
+            var homeController = new HomeController();
 
             // Act
-            ViewResult result = controller.Index() as ViewResult;
+            var result = homeController.Index() as ViewResult;
 
             // Assert
-            Assert.IsNotNull(result, "View result was null when expecting 'Index' result");
+            Assert.IsNotNull(result, "Should have returned a ViewResult");
+
+            Assert.AreEqual(expectedViewName, result.ViewName, "View name should have been {0}", expectedViewName);
         }
 
         [TestMethod]
-        public void Test_When_Home_Controller_Index_Action_Called_That_Splash_View_Returned()
+        public void Test_When_Home_Controller_About_Action_Called_That_About_View_Returned()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            const string expectedViewName = "About";
+            var homeController = new HomeController();
 
             // Act
-            ViewResult result = controller.Index() as ViewResult;
+            var result = homeController.About() as ViewResult;
 
             // Assert
-            Assert.AreEqual(result.ViewName, "Index", "View name was not equal to 'Index'");
+            Assert.IsNotNull(result, "Should have returned a ViewResult");
+
+            Assert.AreEqual(expectedViewName, result.ViewName, "View name should have been {0}", expectedViewName);
         }
 
-        
+        [TestMethod]
+        public void Test_When_Home_Controller_Contact_Action_Called_That_Contact_View_Returned()
+        {
+            // Arrange
+            const string expectedViewName = "Contact";
+            var homeController = new HomeController();
+
+            // Act
+            var result = homeController.Contact() as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result, "Should have returned a ViewResult");
+
+            Assert.AreEqual(expectedViewName, result.ViewName, "View name should have been {0}", expectedViewName);
+        }
     }
 }

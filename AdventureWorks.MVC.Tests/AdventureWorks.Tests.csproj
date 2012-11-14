@@ -117,6 +117,10 @@
       <Project>{8AB7ACE7-1CEB-4A6A-9251-E195DE48E158}</Project>
       <Name>AdventureWorks.ApplicationServices</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AdventureWorks.CrossCutting\AdventureWorks.CrossCutting.csproj">
+      <Project>{AA0A84B7-37B3-45EE-8F25-E247B3E7717C}</Project>
+      <Name>AdventureWorks.CrossCutting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AdventureWorks.Domain\AdventureWorks.Domain.csproj">
       <Project>{DEEC3379-1EC7-4C36-A2D7-C7D4FCD79A79}</Project>
       <Name>AdventureWorks.Domain</Name>

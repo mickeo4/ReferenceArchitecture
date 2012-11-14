@@ -15,36 +15,49 @@ namespace AdventureWorks.Tests.Controllers
     [TestClass]
     public class CustomerControllerTest
     {
-        [TestMethod]
-        public void Test_When_Customer_Controller_Index_Action_Called_That_Customer_View_Result_Is_Not_Null()
+
+        private Mock<IGetCustomersByPage> getCustomersByPage;
+        private CrossCutting.Result<IEnumerable<Domain.Customer>> serviceResult;
+        private List<Domain.Customer> customers;
+
+        [TestInitialize]
+        public void TestInitialize()
         {
             // Arrange
-            var mock = new Mock<IGetCustomersByPage>();
-            IGetCustomersByPage getCustomersByPage = mock.Object;
+            getCustomersByPage = new Mock<IGetCustomersByPage>(); // Setup GetCustomersByPage application service
 
-            CustomerController controller = new CustomerController(getCustomersByPage);
+            serviceResult = new CrossCutting.Result<IEnumerable<Domain.Customer>>(); // Setup dummy result
+            customers = new List<Domain.Customer>();
+            customers.Add(new Domain.Customer() { Title = "Mr", FirstName = "test1", LastName = "test2", EmailAddress = "test3" });
+            customers.Add(new Domain.Customer() { Title = "Mr", FirstName = "test2", LastName = "test3", EmailAddress = "test4" });
+            customers.Add(new Domain.Customer() { Title = "Mr", FirstName = "test3", LastName = "test4", EmailAddress = "test5" });
+            customers.Add(new Domain.Customer() { Title = "Mr", FirstName = "test4", LastName = "test5", EmailAddress = "test6" });
+            customers.Add(new Domain.Customer() { Title = "Mr", FirstName = "test5", LastName = "test6", EmailAddress = "test7" });
+            customers.Add(new Domain.Customer() { Title = "Mr", FirstName = "test6", LastName = "test7", EmailAddress = "test8" });
+            customers.Add(new Domain.Customer() { Title = "Mr", FirstName = "test7", LastName = "test8", EmailAddress = "test9" });
+            customers.Add(new Domain.Customer() { Title = "Mr", FirstName = "test8", LastName = "test9", EmailAddress = "test10" });
+            customers.Add(new Domain.Customer() { Title = "Mr", FirstName = "test9", LastName = "test10", EmailAddress = "test11" });
+            customers.Add(new Domain.Customer() { Title = "Mr", FirstName = "test10", LastName = "test11", EmailAddress = "test12" });
+            serviceResult.Entity = customers;
+            serviceResult.Success = true;
 
-            // Act
-            ViewResult result = controller.Index(null, null) as ViewResult;
-
-            // Assert
-            Assert.IsNotNull(result, "View result was null when expecting 'Index' result");
+            getCustomersByPage.Setup(foo => foo.Execute(1, 10)).Returns(serviceResult); // Setup result action
         }
 
         [TestMethod]
         public void Test_When_Customer_Controller_Index_Action_Called_That_Customer_View_Returned()
         {
             // Arrange
-            var mock = new Mock<IGetCustomersByPage>();
-            IGetCustomersByPage getCustomersByPage = mock.Object;
-
-            CustomerController controller = new CustomerController(getCustomersByPage);
+            const string expectedViewName = "CustomerList";
+            var customerController = new CustomerController(getCustomersByPage.Object); // Setup controller with service injection
 
             // Act
-            ViewResult result = controller.Index(null, null) as ViewResult;
+            var result = customerController.Index(1, 10) as ViewResult;
 
             // Assert
-            Assert.AreEqual(result.ViewName, "Index", "View name was not equal to 'Index'");
+            Assert.IsNotNull(result, "Should have returned a ViewResult");
+
+            Assert.AreEqual(expectedViewName, result.ViewName, "View name should have been {0}", expectedViewName);
         }
 
         [TestMethod]
@@ -54,13 +67,19 @@ namespace AdventureWorks.Tests.Controllers
             var mock = new Mock<IGetCustomersByPage>();
             IGetCustomersByPage getCustomersByPage = mock.Object;
 
-            CustomerController controller = new CustomerController(getCustomersByPage);
+            var customerController = new CustomerController(getCustomersByPage);
 
             // Act
-            ViewResult result = controller.Index(1, 10) as ViewResult;
+            ViewResult result = customerController.Index(1, 10) as ViewResult;
 
             // Assert
-            Assert.AreEqual(((CustomerViewModel)result.Model).Customers.Count(), 10, "View name was not equal to 'Index'");
+            Assert.AreEqual(((CustomerViewModel)result.Model).Customers.Count(), 10, "10 customers were not returned");
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            
         }
     }
 }
