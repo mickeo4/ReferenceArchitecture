@@ -9,6 +9,8 @@ using AdventureWorks.Domain;
 using AdventureWorks.MVC.Filters;
 using AdventureWorks.ApplicationServices.GetCustomers;
 using AdventureWorks.MVC.Models.Customer;
+using Kendo.Mvc.UI;
+using Kendo.Mvc.Extensions;
 
 namespace AdventureWorks.MVC.Controllers
 {
@@ -41,32 +43,32 @@ namespace AdventureWorks.MVC.Controllers
         [ModelStateToTempData]
         public ActionResult Index(int? page, int? pageSize)
         {
-            Result<IEnumerable<Customer>> result = customerService.Execute(page.GetValueOrDefault(0), pageSize.GetValueOrDefault(10));
+            GridResult<IEnumerable<Customer>> result = customerService.Execute(page.GetValueOrDefault(0), pageSize.GetValueOrDefault(10));
 
             Guard.Against<ArgumentNullException>(result.Entity == null, "Result cannot be null when loading customers");
 
             var model = new CustomerViewModel();
 
-            model.Customers = result.Entity;
+            model.CustomerGridResult = result;
 
             return View("CustomerList", model);
         }
 
-        [HttpGet]
-        [ModelStateToTempData]
-        public JsonResult GetCustomers(int? page, int? pageSize)
+        public ActionResult GetNextCustomers([DataSourceRequest] DataSourceRequest request)
         {
-            Result<IEnumerable<Customer>> result = customerService.Execute(page.GetValueOrDefault(0), pageSize.GetValueOrDefault(10));
+            Guard.Against<ArgumentNullException>(request == null, "Grid request cannot be null when loading customers");
 
-            return Json(new { data = result.Entity, total = result.Entity.Count() }, JsonRequestBehavior.AllowGet);
+            GridResult<IEnumerable<Customer>> result = customerService.Execute(request.Page, request.PageSize);
 
-            //Guard.Against<ArgumentNullException>(result.Entity == null, "Result cannot be null when loading customers");
+            Guard.Against<ArgumentNullException>(result == null, "Result cannot be null when loading customers using AJAX");
 
-            //var model = new CustomerViewModel();
-
-            //model.Customers = result.Entity;
-
-            //return View("CustomerList", model);
+            DataSourceResult dataSource = new DataSourceResult
+            {
+                Data = result.Entity,
+                Total = result.TotalRecords
+            };
+            
+            return Json(dataSource);
         }
 
         #endregion

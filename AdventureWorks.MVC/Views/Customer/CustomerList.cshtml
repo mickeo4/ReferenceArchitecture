@@ -8,7 +8,7 @@
 }
 
 
-@(Html.Kendo().Grid(Model.Customers)    
+@(Html.Kendo().Grid(Model.CustomerGridResult.Entity)    
     .Name("Grid")
     .Columns(columns =>
     {
@@ -22,8 +22,10 @@
     .Sortable()
     .Scrollable()
     .Filterable()
+    .EnableCustomBinding(true)
     .DataSource(dataSource => dataSource
         .Ajax()
-        .Read(read => read.Action("Products_Read", "Grid"))
+        .Total(Model.CustomerGridResult.TotalRecords)
+            .Read(read => read.Action("GetNextCustomers", "Customer"))
     )
 )

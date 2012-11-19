@@ -17,7 +17,7 @@ namespace AdventureWorks.Tests.Controllers
     {
 
         private Mock<IGetCustomersByPage> getCustomersByPage;
-        private CrossCutting.Result<IEnumerable<Domain.Customer>> serviceResult;
+        private CrossCutting.GridResult<IEnumerable<Domain.Customer>> serviceResult;
         private List<Domain.Customer> customers;
 
         [TestInitialize]
@@ -26,7 +26,7 @@ namespace AdventureWorks.Tests.Controllers
             // Arrange
             getCustomersByPage = new Mock<IGetCustomersByPage>(); // Setup GetCustomersByPage application service
 
-            serviceResult = new CrossCutting.Result<IEnumerable<Domain.Customer>>(); // Setup dummy result
+            serviceResult = new CrossCutting.GridResult<IEnumerable<Domain.Customer>>(); // Setup dummy result
             customers = new List<Domain.Customer>();
             customers.Add(new Domain.Customer() { Title = "Mr", FirstName = "test1", LastName = "test2", EmailAddress = "test3" });
             customers.Add(new Domain.Customer() { Title = "Mr", FirstName = "test2", LastName = "test3", EmailAddress = "test4" });
@@ -40,6 +40,7 @@ namespace AdventureWorks.Tests.Controllers
             customers.Add(new Domain.Customer() { Title = "Mr", FirstName = "test10", LastName = "test11", EmailAddress = "test12" });
             serviceResult.Entity = customers;
             serviceResult.Success = true;
+            serviceResult.TotalRecords = 100;
 
             getCustomersByPage.Setup(foo => foo.Execute(1, 10)).Returns(serviceResult); // Setup result action
         }
@@ -64,22 +65,19 @@ namespace AdventureWorks.Tests.Controllers
         public void Test_When_Customer_Controller_Index_Action_Called_That_First_Ten_Customers_Returned()
         {
             // Arrange
-            var mock = new Mock<IGetCustomersByPage>();
-            IGetCustomersByPage getCustomersByPage = mock.Object;
-
-            var customerController = new CustomerController(getCustomersByPage);
+            var customerController = new CustomerController(getCustomersByPage.Object);
 
             // Act
             ViewResult result = customerController.Index(1, 10) as ViewResult;
 
             // Assert
-            Assert.AreEqual(((CustomerViewModel)result.Model).Customers.Count(), 10, "10 customers were not returned");
+            Assert.AreEqual(((CustomerViewModel)result.Model).CustomerGridResult.Entity.Count(), 10, "10 customers were not returned");
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-            
+
         }
     }
 }

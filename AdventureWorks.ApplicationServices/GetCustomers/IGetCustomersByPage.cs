@@ -9,6 +9,6 @@ namespace AdventureWorks.ApplicationServices.GetCustomers
 {
     public interface IGetCustomersByPage
     {
-        Result<IEnumerable<Customer>> Execute(int page, int pageSize);
+        GridResult<IEnumerable<Customer>> Execute(int page, int pageSize);
     }
 }

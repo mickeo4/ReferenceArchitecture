@@ -16,7 +16,7 @@ namespace AdventureWorks.ApplicationServices.GetCustomers
 
         #endregion
 
-        #region Cosntrucors
+        #region Construcors
 
         public GetCustomersByPage(IQueryableRepository<Customer> custRepo)
         {
@@ -33,7 +33,7 @@ namespace AdventureWorks.ApplicationServices.GetCustomers
         /// <param name="page">Current page</param>
         /// <param name="pageSize">Size of page</param>
         /// <returns>IEnumerable of Customers</returns>
-        public Result<IEnumerable<Customer>> Execute(int page, int pageSize)
+        public GridResult<IEnumerable<Customer>> Execute(int page, int pageSize)
         {
             Guard.Against<ArgumentOutOfRangeException>(page < 0, "Parameter 'page' is out of range");
             Guard.Against<ArgumentOutOfRangeException>(pageSize < 0, "Parameter 'pageSize' is out of range");
@@ -41,10 +41,15 @@ namespace AdventureWorks.ApplicationServices.GetCustomers
             // Get page of customer entities
             IEnumerable<Customer> customers = _customerQueryableRepository.GetAll().Skip(page - 1 *pageSize).Take(pageSize).ToList();
 
+            // Get total customers
+            int totalRecords = _customerQueryableRepository.GetAll().Count();
+
             // Assume that we should have at least one customer
             Guard.Against<NullReferenceException>(customers == null, "Customers cannot be null");
 
-            Result<IEnumerable<Customer>> result = new Result<IEnumerable<Customer>>(){Entity = customers, ErrorMessage = null, Success = true};
+            GridResult<IEnumerable<Customer>> result = new GridResult<IEnumerable<Customer>>(){Entity = customers, ErrorMessage = null, Success = true};
+
+            result.TotalRecords = totalRecords;
 
             return result;
         }
